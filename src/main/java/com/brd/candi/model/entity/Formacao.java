@@ -6,9 +6,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.UUID;
 
 @Data
@@ -16,19 +18,15 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Usuario {
+public class Formacao {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-    @Column(unique = true)
-    private String email;
-    private String senha;
-    private String nome;
-    private String sobrenome;
-    private String role;
-    private String imagemUrl;
-    @Column(unique = true)
-    private UUID token;
+    private String instituto;
+    private String curso;
+    private String sobre;
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private LocalDate tokenExpiredData;
+    private LocalDate dataInicio;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private LocalDate dataTermino;
 }

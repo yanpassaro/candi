@@ -24,11 +24,9 @@ public class UsuarioDTO {
     @NotEmpty
     @Size(max = 20)
     private String nome;
-    @NotNull
-    @NotBlank
-    @NotEmpty
     @Size(max = 20)
     private String sobrenome;
+    private String role;
 
     public String getSenha() {
         return encodeToString(encodeToString(senha.getBytes()).getBytes());

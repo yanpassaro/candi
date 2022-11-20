@@ -2,7 +2,8 @@ package com.brd.candi.exception;
 
 import com.brd.candi.exception.custom.AlreadyExistsException;
 import com.brd.candi.exception.custom.NotAuthorizedException;
-import com.brd.candi.response.Response;
+import com.brd.candi.exception.custom.NotLoggedException;
+import com.brd.candi.http.Response;
 import org.springframework.core.annotation.Order;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
@@ -68,14 +69,24 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(value = NotAuthorizedException.class)
-    @ResponseStatus(BAD_REQUEST)
+    @ResponseStatus(UNAUTHORIZED)
     public @ResponseBody ResponseEntity<Response> handleNotAuthorizedException(NotAuthorizedException ex) {
         return ResponseEntity.badRequest().body(Response.builder()
                 .mensagem(ex.getMessage())
                 .data(now())
-                .statusCode(BAD_REQUEST.value())
-                .status(BAD_REQUEST)
+                .statusCode(UNAUTHORIZED.value())
+                .status(UNAUTHORIZED)
                 .build());
     }
 
+    @ExceptionHandler(value = NotLoggedException.class)
+    @ResponseStatus(UNAUTHORIZED)
+    public @ResponseBody ResponseEntity<Response> handleNotLoggedException(NotLoggedException ex) {
+        return ResponseEntity.badRequest().body(Response.builder()
+                .mensagem(ex.getMessage())
+                .data(now())
+                .statusCode(UNAUTHORIZED.value())
+                .status(UNAUTHORIZED)
+                .build());
+    }
 }

@@ -1,4 +1,4 @@
-package com.brd.candi.response;
+package com.brd.candi.http;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;

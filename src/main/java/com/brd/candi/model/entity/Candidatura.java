@@ -8,7 +8,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.UUID;
 
 @Data
@@ -16,19 +15,14 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Usuario {
+public class Candidatura {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-    @Column(unique = true)
-    private String email;
-    private String senha;
-    private String nome;
-    private String sobrenome;
-    private String role;
-    private String imagemUrl;
-    @Column(unique = true)
-    private UUID token;
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private LocalDate tokenExpiredData;
+    private LocalDate dataEnvio;
+    @OneToOne
+    private Vaga vaga;
+    @OneToOne
+    private Usuario candidato;
 }

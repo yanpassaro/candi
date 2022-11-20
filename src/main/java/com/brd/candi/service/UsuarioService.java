@@ -2,39 +2,58 @@ package com.brd.candi.service;
 
 import com.brd.candi.model.dto.UsuarioDTO;
 import com.brd.candi.model.entity.Usuario;
-import com.brd.candi.model.redis.UsuarioRedis;
 import com.brd.candi.repository.UsuarioRepository;
-import com.brd.candi.repository.redis.UsuarioRedisRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
+import static com.brd.candi.model.enumaration.Role.CANDIDATO;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class UsuarioService {
-    final UsuarioRedisRepository usuarioRedisRepository;
     final UsuarioRepository usuarioRepository;
 
     @Transactional
-    public UsuarioRedis salvar(UsuarioDTO usuarioDTO){
-        log.info("Cadastrando novo usuário, email: {}", usuarioDTO.getEmail());
-        Usuario usuario = usuarioRepository.save(Usuario.builder()
-                        .email(usuarioDTO.getEmail())
-                        .senha(usuarioDTO.getSenha())
-                .build());
-        return usuarioRedisRepository.save(UsuarioRedis.builder()
-                        .id(usuario.getId())
+    public Usuario salvar(UsuarioDTO usuario) {
+        log.info("Cadastrando novo usuário, email: {}", usuario.getEmail());
+        return usuarioRepository.save(
+                Usuario.builder()
                         .email(usuario.getEmail())
                         .senha(usuario.getSenha())
-                .build());
+                        .nome(usuario.getNome())
+                        .sobrenome(usuario.getSobrenome())
+                        .token(UUID.randomUUID())
+                        .tokenExpiredData(LocalDate.now().plusDays(7))
+                        .role(CANDIDATO.getRoleNome())
+                        .build()
+        );
     }
 
-    public Iterable<UsuarioRedis> visualizarTodos(){
-        return usuarioRedisRepository.findAll();
+    @Transactional
+    public List<Usuario> salvarRecrutadores(List<UsuarioDTO> recrutadores) {
+        log.info("Cadastrando novos recrutadores, {}", recrutadores);
+        List<Usuario> usuarioList = new ArrayList<>();
+        for (UsuarioDTO usuario : recrutadores) {
+            usuarioList.add(
+                    Usuario.builder()
+                            .email(usuario.getEmail())
+                            .senha(usuario.getSenha())
+                            .nome(usuario.getNome())
+                            .sobrenome(usuario.getSobrenome())
+                            .token(UUID.randomUUID())
+                            .tokenExpiredData(LocalDate.now().plusDays(7))
+                            .role(CANDIDATO.getRoleNome())
+                            .build()
+            );
+        }
+        return usuarioRepository.saveAll(usuarioList);
     }
-
 }
