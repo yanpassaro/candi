@@ -1,7 +1,6 @@
 package com.brd.candi.controller;
 
 import com.brd.candi.model.redis.EmpresaRedis;
-import com.brd.candi.repository.redis.EmpresaRedisRepository;
 import com.brd.candi.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,12 +18,10 @@ import static org.springframework.http.HttpStatus.CREATED;
 @RequiredArgsConstructor
 public class UsuarioController {
     final UsuarioService usuarioService;
-    final EmpresaRedisRepository empresaRedisRepository;
 
     @GetMapping("/visualizar")
     @ResponseStatus(CREATED)
     public ResponseEntity<EmpresaRedis> visualizar() {
-        return ResponseEntity.ok(empresaRedisRepository.save(EmpresaRedis.builder()
-                .id(UUID.randomUUID()).build()));
+        return ResponseEntity.ok(EmpresaRedis.builder().id(UUID.randomUUID()).build());
     }
 }
