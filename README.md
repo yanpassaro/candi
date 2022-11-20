@@ -5,7 +5,7 @@
 
 # Sistema gerenciador de candidaturas
 
-Aplicação desenvolvida como solução tecnológica para sistemas recrutamento (RH).
+Solução tecnológica para recrutadores (RH).
 
 ## Motivação
 
