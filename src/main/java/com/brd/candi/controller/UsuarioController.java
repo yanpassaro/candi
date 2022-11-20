@@ -27,5 +27,4 @@ public class UsuarioController {
         return ResponseEntity.ok(empresaRedisRepository.save(EmpresaRedis.builder()
                 .id(UUID.randomUUID()).build()));
     }
-
 }

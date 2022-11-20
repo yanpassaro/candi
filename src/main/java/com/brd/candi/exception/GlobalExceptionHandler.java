@@ -19,8 +19,8 @@ import static java.time.LocalDateTime.now;
 import static org.springframework.core.Ordered.HIGHEST_PRECEDENCE;
 import static org.springframework.http.HttpStatus.*;
 
-@Order(HIGHEST_PRECEDENCE)
 @ControllerAdvice
+@Order(HIGHEST_PRECEDENCE)
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
