@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
-import org.springframework.data.redis.core.index.Indexed;
 
 import java.util.UUID;
 
@@ -16,7 +15,6 @@ public class EmpresaRedis {
     @Id
     private UUID id;
     private String nome;
-    @Indexed
     private String cnpj;
     private String sobre;
     private String imagemUrl;

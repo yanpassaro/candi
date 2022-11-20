@@ -19,7 +19,6 @@ public class VagaRedis {
     @Indexed
     private UUID id;
     private String nome;
-    @Indexed
     private String tipo;
     private String experiencia;
     private String beneficios;
