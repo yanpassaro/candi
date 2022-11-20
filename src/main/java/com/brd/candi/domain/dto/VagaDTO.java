@@ -1,6 +1,6 @@
-package com.brd.candi.model.dto;
+package com.brd.candi.domain.dto;
 
-import com.brd.candi.model.entity.Empresa;
+import com.brd.candi.domain.entity.Empresa;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;

@@ -1,4 +1,4 @@
-package com.brd.candi.model.entity;
+package com.brd.candi.domain.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

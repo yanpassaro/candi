@@ -1,7 +1,7 @@
 package com.brd.candi.service;
 
-import com.brd.candi.model.dto.UsuarioDTO;
-import com.brd.candi.model.entity.Usuario;
+import com.brd.candi.domain.dto.UsuarioDTO;
+import com.brd.candi.domain.entity.Usuario;
 import com.brd.candi.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.UUID;
 
-import static com.brd.candi.model.enumaration.Role.CANDIDATO;
+import static com.brd.candi.domain.enumaration.Role.CANDIDATO;
 
 @Slf4j
 @Service

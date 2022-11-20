@@ -1,4 +1,4 @@
-package com.brd.candi.http;
+package com.brd.candi.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;

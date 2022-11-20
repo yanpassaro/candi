@@ -1,4 +1,4 @@
-package com.brd.candi.model.enumaration;
+package com.brd.candi.domain.enumaration;
 
 public enum Role {
     OWNER("Administrador"),

@@ -3,7 +3,7 @@ package com.brd.candi.exception;
 import com.brd.candi.exception.custom.AlreadyExistsException;
 import com.brd.candi.exception.custom.NotAuthorizedException;
 import com.brd.candi.exception.custom.NotLoggedException;
-import com.brd.candi.http.Response;
+import com.brd.candi.domain.model.Response;
 import org.springframework.core.annotation.Order;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;

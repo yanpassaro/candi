@@ -1,4 +1,4 @@
-package com.brd.candi.model.dto;
+package com.brd.candi.domain.dto;
 
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;

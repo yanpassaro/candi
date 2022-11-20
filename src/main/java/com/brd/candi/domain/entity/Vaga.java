@@ -1,4 +1,4 @@
-package com.brd.candi.model.entity;
+package com.brd.candi.domain.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,7 +8,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.UUID;
 
 @Data
@@ -16,19 +15,17 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Usuario {
+public class Vaga {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-    @Column(unique = true)
-    private String email;
-    private String senha;
     private String nome;
-    private String sobrenome;
-    private String role;
-    private String imagemUrl;
-    @Column(unique = true)
-    private UUID token;
+    private String tipo;
+    private String experiencia;
+    private String beneficios;
+    private String sobre;
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private LocalDate tokenExpiredData;
+    private LocalDate dataTermino;
+    @ManyToOne
+    private Empresa empresa;
 }

@@ -1,6 +1,6 @@
-package com.brd.candi.model.redis;
+package com.brd.candi.domain.redis;
 
-import com.brd.candi.model.entity.Endereco;
+import com.brd.candi.domain.entity.Endereco;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
