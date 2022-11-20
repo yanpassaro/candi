@@ -26,5 +26,5 @@ Desenvolvido como requisito avaliativo escolar.
 
 + [Spring Boot Documentation](https://docs.spring.io/spring-boot/docs/current/reference/html/)
 + [Hibernate Documentation](https://docs.jboss.org/hibernate/orm/6.1/userguide/html_single/Hibernate_User_Guide.html)
-+ [PostgreSQL](https://www.postgresql.org/docs/)
++ [PostgreSQL Documentation](https://www.postgresql.org/docs/)
 + [Redis Documentation](https://redis.io/docs/)
