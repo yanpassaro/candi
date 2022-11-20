@@ -1,5 +1,6 @@
 package com.brd.candi.model.redis;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -14,6 +15,7 @@ import java.util.UUID;
 public class UsuarioRedis {
     @Id
     @Indexed
+    @JsonIgnore
     private UUID id;
     @Indexed
     private String email;

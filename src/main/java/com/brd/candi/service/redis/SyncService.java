@@ -1,5 +1,6 @@
 package com.brd.candi.service.redis;
 
+import com.brd.candi.config.SyncConfig;
 import com.brd.candi.model.entity.Usuario;
 import com.brd.candi.model.redis.UsuarioRedis;
 import com.brd.candi.repository.UsuarioRepository;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.brd.candi.config.SyncConfig.TEMPO_MAIOR;
+
 @Slf4j
 @EnableScheduling
 @Service
@@ -21,7 +24,7 @@ public class SyncService {
     final UsuarioRedisRepository usuarioRedisRepository;
     final UsuarioRepository usuarioRepository;
 
-    @Scheduled(fixedDelay = 1000 * 60)
+    @Scheduled(fixedDelay = 100000*60)
     public void syncUsuario() {
         log.info("Sincronizando todos os usuários");
         List<Usuario> usuarios = usuarioRepository.findAll();
