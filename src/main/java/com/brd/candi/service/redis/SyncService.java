@@ -24,24 +24,32 @@ public class SyncService {
     final UsuarioRedisRepository usuarioRedisRepository;
     final UsuarioRepository usuarioRepository;
 
-    @Scheduled(fixedDelay = 100000*60)
-    public void syncUsuario() {
-        log.info("Sincronizando todos os usuários");
-        List<Usuario> usuarios = usuarioRepository.findAll();
-        usuarioRedisRepository.saveAll(loadUsuario(usuarios));
-    }
-
-    private List<UsuarioRedis> loadUsuario(List<Usuario> usuarios) {
-        List<UsuarioRedis> usuarioRedis = new ArrayList<>();
-        for (Usuario usuario : usuarios) {
-            usuarioRedis.add(
-                    UsuarioRedis.builder()
-                            .id(usuario.getId())
-                            .email(usuario.getEmail())
-                            .senha(usuario.getSenha())
-                            .build()
-            );
-        }
-        return usuarioRedis;
-    }
+//    @Scheduled(fixedDelay = 100000*60)
+//    public void syncUsuario() {
+//        log.info("Sincronizando todos os usuários");
+//        List<Usuario> usuarios = usuarioRepository.findAll();
+//        usuarioRedisRepository.saveAll(loadUsuario(usuarios));
+//    }
+//
+//    private List<UsuarioRedis> loadUsuario(List<Usuario> usuarios) {
+//        List<UsuarioRedis> usuarioRedis = new ArrayList<>();
+//        for (Usuario usuario : usuarios) {
+//            usuarioRedis.add(
+//                    UsuarioRedis.builder()
+//                            .id(usuario.getId())
+//                            .email(usuario.getEmail())
+//                            .senha(usuario.getSenha())
+//                            .build()
+//            );
+//        }
+//        return usuarioRedis;
+//    }
+//
+//    @Scheduled(fixedDelay = 100000*60)
+//    public void deleteUser() {
+//        if (usuarioRedisRepository.findAll() != null) {
+//            log.info("Deletando todos os usuários");
+//            usuarioRedisRepository.deleteAll();
+//        }
+//    }
 }
