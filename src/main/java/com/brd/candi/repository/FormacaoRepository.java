@@ -2,10 +2,10 @@ package com.brd.candi.repository;
 
 import com.brd.candi.model.entity.Formacao;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.util.UUID;
 
-@Repository
+@EnableJpaRepositories
 public interface FormacaoRepository extends JpaRepository<Formacao, UUID> {
 }
