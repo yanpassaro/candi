@@ -1,12 +1,12 @@
 package com.brd.candi.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -19,11 +19,13 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-    @Column(unique = true)
-    private String email;
-    private String senha;
     private String nome;
     private String sobrenome;
+    @Column(unique = true)
+    private String email;
+    @JsonIgnore
+    private String senha;
+    @JsonIgnore
     private String role;
     private String imagemUrl;
     @OneToOne

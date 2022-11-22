@@ -1,9 +1,10 @@
 package com.brd.candi.exception;
 
+import com.brd.candi.domain.model.Response;
 import com.brd.candi.exception.custom.AlreadyExistsException;
 import com.brd.candi.exception.custom.NotAuthorizedException;
+import com.brd.candi.exception.custom.NotExistException;
 import com.brd.candi.exception.custom.NotLoggedException;
-import com.brd.candi.domain.model.Response;
 import org.springframework.core.annotation.Order;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,8 @@ import javax.persistence.EntityNotFoundException;
 
 import static java.time.LocalDateTime.now;
 import static org.springframework.core.Ordered.HIGHEST_PRECEDENCE;
-import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 @ControllerAdvice
 @Order(HIGHEST_PRECEDENCE)
@@ -36,13 +38,13 @@ public class GlobalExceptionHandler {
 
 
     @ExceptionHandler(value = EntityNotFoundException.class)
-    @ResponseStatus(NOT_FOUND)
+    @ResponseStatus(BAD_REQUEST)
     public @ResponseBody ResponseEntity<Response> handleEntityNotFound() {
         return ResponseEntity.badRequest().body(Response.builder()
-                .mensagem(NOT_FOUND.getReasonPhrase())
+                .mensagem(BAD_REQUEST.getReasonPhrase())
                 .data(now())
-                .statusCode(NOT_FOUND.value())
-                .status(NOT_FOUND)
+                .statusCode(BAD_REQUEST.value())
+                .status(BAD_REQUEST)
                 .build());
     }
 
@@ -69,24 +71,35 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(value = NotAuthorizedException.class)
-    @ResponseStatus(UNAUTHORIZED)
+    @ResponseStatus(BAD_REQUEST)
     public @ResponseBody ResponseEntity<Response> handleNotAuthorizedException(NotAuthorizedException ex) {
         return ResponseEntity.badRequest().body(Response.builder()
                 .mensagem(ex.getMessage())
                 .data(now())
-                .statusCode(UNAUTHORIZED.value())
-                .status(UNAUTHORIZED)
+                .statusCode(BAD_REQUEST.value())
+                .status(BAD_REQUEST)
                 .build());
     }
 
     @ExceptionHandler(value = NotLoggedException.class)
-    @ResponseStatus(UNAUTHORIZED)
+    @ResponseStatus(BAD_REQUEST)
     public @ResponseBody ResponseEntity<Response> handleNotLoggedException(NotLoggedException ex) {
         return ResponseEntity.badRequest().body(Response.builder()
                 .mensagem(ex.getMessage())
                 .data(now())
-                .statusCode(UNAUTHORIZED.value())
-                .status(UNAUTHORIZED)
+                .statusCode(BAD_REQUEST.value())
+                .status(BAD_REQUEST)
+                .build());
+    }
+
+    @ExceptionHandler(value = NotExistException.class)
+    @ResponseStatus(BAD_REQUEST)
+    public @ResponseBody ResponseEntity<Response> handleNotExistException(NotExistException ex) {
+        return ResponseEntity.badRequest().body(Response.builder()
+                .mensagem(ex.getMessage())
+                .data(now())
+                .statusCode(BAD_REQUEST.value())
+                .status(BAD_REQUEST)
                 .build());
     }
 }

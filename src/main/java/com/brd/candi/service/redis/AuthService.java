@@ -15,7 +15,9 @@ public class AuthService {
     final TokenRepository tokenRepository;
 
     public void verificar(UUID id, UUID token) throws NotAuthorizedException {
-        if (!tokenRepository.existsByIdAndToken(id, token))
+        if (!tokenRepository.existsByIdAndToken(id, token)) {
+            log.error("Credenciais {} {} inválidas", id, token);
             throw new NotAuthorizedException("Credenciais invalidas");
+        }
     }
 }

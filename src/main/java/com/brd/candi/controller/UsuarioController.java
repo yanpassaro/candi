@@ -27,7 +27,7 @@ public class UsuarioController {
 
     @GetMapping("/visualizar")
     @ResponseStatus(value = OK, code = OK)
-    public ResponseEntity<Response> visualizar(@RequestParam("id") UUID id)
+    public @ResponseBody ResponseEntity<Response> visualizar(@RequestParam("id") UUID id)
             throws NotExistException {
         return ResponseEntity.ok().body(Response.builder()
                 .data(now())
@@ -39,25 +39,25 @@ public class UsuarioController {
 
     @GetMapping(path = "/login", produces={MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(value = OK, code = OK)
-    public ResponseEntity<Response> login(@RequestBody @Valid LoginDTO loginDTO)
+    public @ResponseBody ResponseEntity<Response> login(@RequestBody @Valid LoginDTO loginDTO)
             throws NotExistException {
         return ResponseEntity.ok().body(Response.builder()
                 .data(now())
-                .status(CREATED).statusCode(CREATED.value())
+                .status(OK).statusCode(OK.value())
                 .mensagem("Login efetuado com sucesso")
                 .dados(Map.of("Candidato", usuarioService.login(loginDTO)))
                 .build());
     }
 
     @PostMapping("/salvar")
-    @ResponseStatus(CREATED)
-    public ResponseEntity<Response> cadastrar(@RequestBody @Valid UsuarioDTO usuarioDTO)
+    @ResponseStatus(value = CREATED, code = CREATED)
+    public @ResponseBody ResponseEntity<Response> cadastrar(@RequestBody @Valid UsuarioDTO usuarioDTO)
             throws AlreadyExistsException {
         usuarioService.salvar(usuarioDTO);
-        return ResponseEntity.ok().body(Response.builder()
+        return ResponseEntity.ok(Response.builder()
                 .data(now())
                 .status(CREATED).statusCode(CREATED.value())
-                .mensagem("Cadastro realizado com sucesso!")
+                .mensagem("Cadastro realizado com sucesso")
                 .build());
     }
 }

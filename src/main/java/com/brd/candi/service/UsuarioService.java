@@ -1,9 +1,9 @@
 package com.brd.candi.service;
 
+import com.brd.candi.domain.dto.EmailDTO;
 import com.brd.candi.domain.dto.LoginDTO;
 import com.brd.candi.domain.dto.UsuarioDTO;
 import com.brd.candi.domain.entity.Usuario;
-import com.brd.candi.domain.model.EmailModel;
 import com.brd.candi.domain.redis.TokenRedis;
 import com.brd.candi.exception.custom.AlreadyExistsException;
 import com.brd.candi.exception.custom.NotExistException;
@@ -58,17 +58,18 @@ public class UsuarioService {
                 .ativo(true)
                 .build()
         );
-        emailSenderService.enviarEmail(EmailModel.builder()
+        emailSenderService.enviarEmail(EmailDTO.builder()
                 .destino(usuario.getEmail())
-                .assunto("Bem-vindo " + usuario.getNome())
-                .conteudo("Seu novo cadastro no email: " + usuario.getEmail() + " foi realizado com sucesso!")
+                .assunto("Bem-vindo " + usuario.getNome() + usuario.getSobrenome())
+                .conteudo("Seu novo cadastro no email: " + usuario.getEmail() + " foi realizado com sucesso!\n" +
+                        "Se não foi você, desconsidere esse email :)")
                 .build()
         );
     }
 
     public Usuario visualizar(UUID id) throws NotExistException {
         if (!usuarioRepository.existsById(id))
-            throw new NotExistException("Esse ID não faz referencia a um usuário cadastrado!");
+            throw new NotExistException("Esse ID não faz referencia a um usuário cadastrado");
         return usuarioRepository.findUsuarioById(id);
     }
 
@@ -83,6 +84,6 @@ public class UsuarioService {
                             .token(UUID.randomUUID())
                             .ativo(true)
                     .build());
-            return tokenRepository.findTokenRedisById(usuario.getId());
+        return tokenRepository.findTokenRedisById(usuario.getId());
     }
 }

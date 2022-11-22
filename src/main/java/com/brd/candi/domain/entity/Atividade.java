@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,9 +24,7 @@ public class Atividade {
     private String nome;
     private String local;
     private String sobre;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataInicio;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataTermino;
     private boolean ativo;
 }
