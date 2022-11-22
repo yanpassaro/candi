@@ -18,15 +18,16 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Formacao {
+public class Atividade {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-    private String instituto;
-    private String curso;
+    private String nome;
+    private String local;
     private String sobre;
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataInicio;
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataTermino;
+    private boolean ativo;
 }

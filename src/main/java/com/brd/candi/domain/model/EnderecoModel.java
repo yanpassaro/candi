@@ -7,5 +7,4 @@ public class EnderecoModel {
     private String cep;
     private String cidade;
     private String estado;
-    private String pais;
 }

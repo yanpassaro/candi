@@ -1,5 +1,6 @@
 package com.brd.candi.service.others;
 
+import com.brd.candi.domain.model.EmailModel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.SimpleMailMessage;
@@ -10,12 +11,14 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class EmailSenderService {
-    final JavaMailSender javaMailSender;
+    final JavaMailSender mailSender;
 
-    public void enviarAnalise() {
-        log.info("Enviando email");
+    public void enviarEmail(EmailModel emailModel) {
+        log.info("Enviando email para {}", emailModel.getDestino());
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setSubject("teste");
-        message.setTo("yannpassaro@gmail.com");
+        message.setSubject(emailModel.getAssunto());
+        message.setTo(emailModel.getDestino());
+        message.setText(emailModel.getConteudo());
+        mailSender.send(message);
     }
 }

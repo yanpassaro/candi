@@ -21,8 +21,8 @@ public class Candidatura {
     private UUID id;
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataEnvio;
-    @OneToOne
+    @ManyToOne
     private Vaga vaga;
-    @OneToOne
+    @ManyToOne
     private Usuario candidato;
 }

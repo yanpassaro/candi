@@ -21,7 +21,6 @@ public class Vaga {
     private UUID id;
     private String nome;
     private String tipo;
-    private String experiencia;
     private String beneficios;
     private String sobre;
     @DateTimeFormat(pattern = "dd/MM/yyyy")

@@ -1,7 +1,5 @@
 package com.brd.candi.service.redis;
 
-import com.brd.candi.repository.redis.EmpresaRedisRepository;
-import com.brd.candi.repository.redis.VagaRedisRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
@@ -16,20 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class SyncService {
-    final EmpresaRedisRepository empresaRedisRepository;
-    final VagaRedisRepository vagaRedisRepository;
 
     @Transactional
-    @Scheduled(fixedDelay = 10000*60)
+    @Scheduled(cron = "* * * 1,8,15,22,31 * *")
     public void flushAllEmpresas(){
-        log.info("deletando todas as empresas");
-        empresaRedisRepository.deleteAll();
-    }
-
-    @Transactional
-    @Scheduled(fixedDelay = 10000*60)
-    public void flushAllVagas(){
-        log.info("deletando todas as vagas");
-        vagaRedisRepository.deleteAll();
+        log.info("Deletando todos os tokens em cache");
     }
 }

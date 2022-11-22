@@ -4,10 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -26,8 +26,8 @@ public class Usuario {
     private String sobrenome;
     private String role;
     private String imagemUrl;
-    @Column(unique = true)
-    private UUID token;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private LocalDate tokenExpiredData;
+    @OneToOne
+    private Endereco endereco;
+    @OneToMany
+    private Set<Atividade> atividades;
 }
