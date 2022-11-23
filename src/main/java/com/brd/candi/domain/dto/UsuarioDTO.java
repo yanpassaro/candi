@@ -13,7 +13,6 @@ import static org.springframework.util.Base64Utils.encodeToString;
 @Data
 @Builder
 public class UsuarioDTO {
-    private UUID id;
     @Email
     @NotNull
     @NotBlank
@@ -37,32 +36,5 @@ public class UsuarioDTO {
 
     public String getSenha() {
         return encodeToString(encodeToString(senha.getBytes()).getBytes());
-    }
-
-    public Endereco getEndereco() {
-        return Endereco.builder()
-                .id(endereco.getId())
-                .estado(endereco.getEstado())
-                .cidade(endereco.getCidade())
-                .cep(endereco.getCep())
-                .build();
-    }
-
-    public Set<Atividade> getAtividades(){
-        Set<Atividade> atividadeList = new HashSet<>();
-        for (AtividadeDTO atividadeDTO: atividades) {
-            atividadeList.add(
-                    Atividade.builder()
-                            .id(atividadeDTO.getId())
-                            .ativo(atividadeDTO.isAtivo())
-                            .nome(atividadeDTO.getNome())
-                            .local(atividadeDTO.getLocal())
-                            .sobre(atividadeDTO.getSobre())
-                            .dataInicio(atividadeDTO.getDataInicio())
-                            .dataTermino(atividadeDTO.getDataTermino())
-                            .build()
-            );
-        }
-        return atividadeList;
     }
 }

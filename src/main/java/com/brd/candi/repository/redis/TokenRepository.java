@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.UUID;
 
 public interface TokenRepository extends CrudRepository<TokenRedis, UUID> {
-    boolean existsByIdAndToken(UUID id, UUID token);
+    boolean existsTokenRedisByIdAndToken(UUID id, UUID token);
 
     TokenRedis findTokenRedisById(UUID id);
 }

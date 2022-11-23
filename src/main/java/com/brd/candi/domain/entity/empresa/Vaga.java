@@ -1,5 +1,6 @@
-package com.brd.candi.domain.entity;
+package com.brd.candi.domain.entity.empresa;
 
+import com.brd.candi.domain.entity.empresa.Empresa;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

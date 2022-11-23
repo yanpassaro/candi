@@ -20,7 +20,7 @@ public class SyncService {
     final TokenRepository tokenRepository;
 
     @Transactional
-    @Scheduled(fixedDelay = 7, initialDelay = 7, timeUnit = TimeUnit.DAYS)
+    @Scheduled(fixedDelay = 1, initialDelay = 1, timeUnit = TimeUnit.DAYS)
     public void flushAllEmpresas(){
         log.info("Deletando todos os tokens em cache");
         tokenRepository.deleteAll();

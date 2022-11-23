@@ -1,4 +1,4 @@
-package com.brd.candi.domain.entity;
+package com.brd.candi.domain.entity.empresa;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -15,7 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Usuario {
+public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
@@ -27,10 +26,6 @@ public class Usuario {
     private String senha;
     @JsonIgnore
     private String role;
-    private String imagemUrl;
     private String sobre;
-    @OneToOne
-    private Endereco endereco;
-    @OneToMany
-    private Set<Atividade> atividades;
 }
+
