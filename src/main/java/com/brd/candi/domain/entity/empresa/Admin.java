@@ -24,7 +24,6 @@ public class Admin {
     private String email;
     @JsonIgnore
     private String senha;
-    @JsonIgnore
     private String role;
     private String sobre;
 }

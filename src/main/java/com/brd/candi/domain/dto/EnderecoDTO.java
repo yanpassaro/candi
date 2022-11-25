@@ -9,7 +9,6 @@ import java.util.UUID;
 @Data
 @Builder
 public class EnderecoDTO {
-    private UUID id;
     @Size(min = 14, max = 14)
     private String cep;
     @Size(max = 30)

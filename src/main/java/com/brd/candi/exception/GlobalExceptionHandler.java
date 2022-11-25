@@ -5,6 +5,7 @@ import com.brd.candi.exception.custom.AlreadyExistsException;
 import com.brd.candi.exception.custom.NotAuthorizedException;
 import com.brd.candi.exception.custom.NotExistException;
 import com.brd.candi.exception.custom.NotLoggedException;
+import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.core.annotation.Order;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.persistence.EntityNotFoundException;
-
-import java.time.LocalDate;
 
 import static java.time.LocalDate.now;
 import static org.springframework.core.Ordered.HIGHEST_PRECEDENCE;
@@ -38,6 +37,16 @@ public class GlobalExceptionHandler {
                 .build());
     }
 
+    @ExceptionHandler(value = JSONException.class)
+    @ResponseStatus(BAD_REQUEST)
+    public @ResponseBody ResponseEntity<Response> handleNotLoggedException() {
+        return ResponseEntity.badRequest().body(Response.builder()
+                .mensagem("Json invalido")
+                .data(now())
+                .statusCode(BAD_REQUEST.value())
+                .status(BAD_REQUEST)
+                .build());
+    }
 
     @ExceptionHandler(value = EntityNotFoundException.class)
     @ResponseStatus(BAD_REQUEST)

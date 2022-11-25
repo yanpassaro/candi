@@ -19,6 +19,5 @@ public class EmailSenderService {
         message.setSubject(emailDTO.getAssunto());
         message.setTo(emailDTO.getDestino());
         message.setText(emailDTO.getConteudo());
-        mailSender.send(message);
     }
 }

@@ -1,12 +1,10 @@
 package com.brd.candi.domain.dto;
 
-import com.brd.candi.domain.entity.Atividade;
-import com.brd.candi.domain.entity.Endereco;
 import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.*;
-import java.util.*;
+import java.util.Set;
 
 import static org.springframework.util.Base64Utils.encodeToString;
 
@@ -31,6 +29,7 @@ public class UsuarioDTO {
     private String nome;
     @Size(max = 20)
     private String sobrenome;
+    private ContatoDTO contato;
     private EnderecoDTO endereco;
     private Set<AtividadeDTO> atividades;
 

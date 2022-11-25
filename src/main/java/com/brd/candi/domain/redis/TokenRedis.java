@@ -1,5 +1,6 @@
 package com.brd.candi.domain.redis;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -14,8 +15,9 @@ import java.util.UUID;
 public class TokenRedis {
     @Id
     @Indexed
-    private UUID id;
-    @Indexed
     private UUID token;
-    private boolean ativo;
+    @Indexed
+    @JsonIgnore
+    private UUID idUser;
+    private String role;
 }

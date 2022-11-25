@@ -1,4 +1,4 @@
-package com.brd.candi.domain.entity.empresa;
+package com.brd.candi.domain.entity;
 
 import com.brd.candi.domain.entity.empresa.Empresa;
 import lombok.AllArgsConstructor;
@@ -24,7 +24,6 @@ public class Vaga {
     private String tipo;
     private String beneficios;
     private String sobre;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataTermino;
     @ManyToOne
     private Empresa empresa;

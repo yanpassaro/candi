@@ -4,10 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
-import java.time.LocalDate;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.UUID;
 
 @Data
@@ -15,13 +16,13 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Candidatura {
+public class Contato {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-    private LocalDate dataEnvio;
-    @ManyToOne
-    private Vaga vaga;
-    @ManyToOne
-    private Usuario candidato;
+    private String email;
+    private String telefone;
+    private String blog;
+    private String portfolio;
 }
+

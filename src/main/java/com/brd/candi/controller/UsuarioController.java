@@ -3,6 +3,7 @@ package com.brd.candi.controller;
 import com.brd.candi.domain.dto.LoginDTO;
 import com.brd.candi.domain.dto.UsuarioDTO;
 import com.brd.candi.domain.model.Response;
+import com.brd.candi.domain.redis.TokenRedis;
 import com.brd.candi.exception.custom.AlreadyExistsException;
 import com.brd.candi.exception.custom.NotAuthorizedException;
 import com.brd.candi.exception.custom.NotExistException;
@@ -23,20 +24,21 @@ import static org.springframework.http.HttpStatus.OK;
 @RestController
 @RequestMapping("/api/candidato")
 @RequiredArgsConstructor
+@CrossOrigin(allowedHeaders = "*")
 public class UsuarioController {
     final UsuarioService usuarioService;
     final AuthService authService;
 
     @GetMapping("/visualizar")
     @ResponseStatus(OK)
-    public @ResponseBody ResponseEntity<Response> visualizar(@RequestHeader("id") UUID id, @RequestHeader("token") UUID token)
+    public @ResponseBody ResponseEntity<Response> visualizar(@RequestParam("token") UUID token)
             throws NotAuthorizedException {
-        authService.verificar(id, token);
+        TokenRedis tokenRedis = authService.autenticar(token);
         return ResponseEntity.ok().body(Response.builder()
                 .data(now())
                 .status(OK).statusCode(OK.value())
                 .mensagem("Exibindo usuário")
-                .dados(Map.of("Usuário", usuarioService.visualizar(id)))
+                .dados(Map.of("Usuário", usuarioService.visualizar(tokenRedis.getIdUser())))
                 .build());
     }
 
@@ -66,10 +68,10 @@ public class UsuarioController {
 
     @PutMapping ("/atualizar")
     @ResponseStatus(OK)
-    public @ResponseBody ResponseEntity<Response> atualizar(@RequestBody @Valid UsuarioDTO usuarioDTO, @RequestHeader("id") UUID id, @RequestHeader("token") UUID token)
+    public @ResponseBody ResponseEntity<Response> atualizar(@RequestBody @Valid UsuarioDTO usuarioDTO, @RequestParam("token") UUID token)
             throws NotAuthorizedException {
-        authService.verificar(id, token);
-        usuarioService.atualizar(usuarioDTO, id);
+        TokenRedis tokenRedis = authService.autenticar(token);
+        usuarioService.atualizar(usuarioDTO, tokenRedis.getIdUser());
         return ResponseEntity.ok(Response.builder()
                 .data(now())
                 .status(OK).statusCode(OK.value())
@@ -79,10 +81,10 @@ public class UsuarioController {
 
     @DeleteMapping ("/deletar")
     @ResponseStatus(OK)
-    public @ResponseBody ResponseEntity<Response> deletar(@RequestHeader("id") UUID id, @RequestHeader("token") UUID token)
+    public @ResponseBody ResponseEntity<Response> deletar(@RequestParam("token") UUID token)
             throws NotAuthorizedException {
-        authService.verificar(id, token);
-        usuarioService.deletar(id);
+        TokenRedis tokenRedis = authService.autenticar(token);
+        usuarioService.deletar(tokenRedis.getToken());
         return ResponseEntity.ok(Response.builder()
                 .data(now())
                 .status(OK).statusCode(OK.value())

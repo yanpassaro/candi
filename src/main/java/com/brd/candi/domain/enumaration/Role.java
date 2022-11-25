@@ -1,8 +1,8 @@
 package com.brd.candi.domain.enumaration;
 
 public enum Role {
-    OWNER("Administrador"),
-    CANDIDATO("Candidato"),
+    ADMIN("Administrador"),
+    USUARIO("Usuário"),
     RECRUTADOR("Recrutador");
 
     final String roleNome;

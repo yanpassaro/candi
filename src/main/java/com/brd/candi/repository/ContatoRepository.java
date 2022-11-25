@@ -1,9 +1,9 @@
 package com.brd.candi.repository;
 
-import com.brd.candi.domain.entity.Endereco;
+import com.brd.candi.domain.entity.Contato;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
 
-public interface EnderecoRepository extends JpaRepository<Endereco, UUID> {
+public interface ContatoRepository extends JpaRepository<Contato, UUID> {
 }

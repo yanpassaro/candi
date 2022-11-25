@@ -25,12 +25,12 @@ public class Usuario {
     private String email;
     @JsonIgnore
     private String senha;
-    @JsonIgnore
-    private String role;
     private String imagemUrl;
     private String sobre;
     @OneToOne
     private Endereco endereco;
+    @OneToOne
+    private Contato contato;
     @OneToMany
     private Set<Atividade> atividades;
 }

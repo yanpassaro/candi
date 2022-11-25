@@ -1,6 +1,5 @@
 package com.brd.candi.domain.dto;
 
-import com.brd.candi.domain.entity.Endereco;
 import lombok.Builder;
 import lombok.Data;
 
@@ -24,8 +23,9 @@ public class EmpresaDTO {
     private String cnpj;
     @Size(max = 300)
     private String sobre;
-    private Endereco endereco;
+    private ContatoDTO contato;
+    private EnderecoDTO endereco;
+    private String imagemUrl;
     @NotNull
-    private UsuarioDTO administrador;
-    private Set<UsuarioDTO> administradores;
+    private Set<AdminDTO> administradores;
 }
