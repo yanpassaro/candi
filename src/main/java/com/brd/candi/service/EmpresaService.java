@@ -120,4 +120,11 @@ public class EmpresaService {
                         .build()
         ).toList();
     }
+
+    public Empresa detalhar(UUID id) throws NotExistException {
+        if (!empresaRepository.existsByRecrutadoresId(id)) {
+            throw new NotExistException("Administrador não cadastrado");
+        }
+        return empresaRepository.findEmpresaByRecrutadoresId(id);
+    }
 }
