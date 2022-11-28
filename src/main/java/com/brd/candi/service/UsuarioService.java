@@ -1,17 +1,15 @@
 package com.brd.candi.service;
 
+import com.brd.candi.domain.dto.AtualizarUsuarioDTO;
 import com.brd.candi.domain.dto.EmailDTO;
 import com.brd.candi.domain.dto.UsuarioDTO;
-import com.brd.candi.domain.entity.Atividade;
-import com.brd.candi.domain.entity.Contato;
-import com.brd.candi.domain.entity.Endereco;
 import com.brd.candi.domain.entity.Usuario;
 import com.brd.candi.exception.custom.AlreadyExistsException;
+import com.brd.candi.exception.custom.NotExistException;
 import com.brd.candi.repository.AtividadeRepository;
 import com.brd.candi.repository.ContatoRepository;
 import com.brd.candi.repository.EnderecoRepository;
 import com.brd.candi.repository.UsuarioRepository;
-import com.brd.candi.repository.redis.TokenRepository;
 import com.brd.candi.service.others.EmailSenderService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,9 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.UUID;
-import java.util.stream.Collectors;
-
-import static org.springframework.util.Base64Utils.encodeToString;
 
 @Slf4j
 @Service
@@ -48,30 +43,9 @@ public class UsuarioService {
                         .senha(usuarioDTO.getSenha())
                         .nome(usuarioDTO.getNome())
                         .sobrenome(usuarioDTO.getSobrenome())
-                        .endereco(enderecoRepository.save(Endereco.builder()
-                                .cep(usuarioDTO.getEndereco().getCep())
-                                .estado(usuarioDTO.getEndereco().getEstado())
-                                .cidade(usuarioDTO.getEndereco().getCidade())
-                                .build()))
-                        .contato(contatoRepository.save(
-                                Contato.builder()
-                                        .email(usuarioDTO.getContato().getEmail())
-                                        .blog(usuarioDTO.getContato().getBlog())
-                                        .telefone(usuarioDTO.getContato().getTelefone())
-                                        .portfolio(usuarioDTO.getContato().getPortfolio())
-                                        .build()
-                        ))
-                        .atividades(new HashSet<>(atividadeRepository.saveAll(usuarioDTO.getAtividades()
-                                .stream().map(atividadeDTO -> {
-                                    return Atividade.builder()
-                                            .local(atividadeDTO.getLocal())
-                                            .nome(atividadeDTO.getNome())
-                                            .dataInicio(atividadeDTO.getDataInicio())
-                                            .dataTermino(atividadeDTO.getDataTermino())
-                                            .sobre(atividadeDTO.getSobre())
-                                            .build();
-                                }).collect(Collectors.toSet()))))
-                        .imagemUrl("/img/profile/" + encodeToString(usuarioDTO.getEmail().getBytes()))
+                        .endereco(enderecoRepository.save(usuarioDTO.getEndereco()))
+                        .contato(contatoRepository.save(usuarioDTO.getContato()))
+                        .atividades(new HashSet<>(atividadeRepository.saveAll(usuarioDTO.getAtividades())))
                         .build()
         );
         emailSenderService.enviarEmail(EmailDTO.builder()
@@ -84,48 +58,29 @@ public class UsuarioService {
 
     @Async
     @Transactional
-    public void atualizar(UsuarioDTO usuarioDTO, UUID id) {
+    public void atualizar(AtualizarUsuarioDTO usuarioDTO, UUID id) throws NotExistException {
+        if (!usuarioRepository.existsById(id))
+            throw new NotExistException("Usuário não cadastrado");
         log.info("Atualizando usuário {}", usuarioDTO);
         Usuario usuario = usuarioRepository.findUsuarioById(id);
         usuarioRepository.save(
                 Usuario.builder()
                         .id(id)
                         .email(usuario.getEmail())
-                        .imagemUrl(usuario.getImagemUrl())
+                        .sobrenome(usuarioDTO.getSobrenome())
                         .senha(usuarioDTO.getSenha())
-                        .nome(usuarioDTO.getNome())
-                        .endereco(enderecoRepository.save(Endereco.builder()
-                                .id(usuario.getEndereco().getId())
-                                .cep(usuarioDTO.getEndereco().getCep())
-                                .estado(usuarioDTO.getEndereco().getEstado())
-                                .cidade(usuarioDTO.getEndereco().getCidade())
-                                .build()))
-                        .contato(contatoRepository.save(
-                                Contato.builder()
-                                        .id(usuario.getContato().getId())
-                                        .email(usuarioDTO.getContato().getEmail())
-                                        .blog(usuarioDTO.getContato().getBlog())
-                                        .telefone(usuarioDTO.getContato().getTelefone())
-                                        .portfolio(usuarioDTO.getContato().getPortfolio())
-                                        .build()
-                        ))
-                        .atividades(new HashSet<>(atividadeRepository.saveAll(usuarioDTO.getAtividades()
-                                .stream().map(atividadeDTO -> {
-                                    return Atividade.builder()
-                                            .id(atividadeDTO.getId())
-                                            .local(atividadeDTO.getLocal())
-                                            .nome(atividadeDTO.getNome())
-                                            .dataInicio(atividadeDTO.getDataInicio())
-                                            .dataTermino(atividadeDTO.getDataTermino())
-                                            .sobre(atividadeDTO.getSobre())
-                                            .build();
-                                }).collect(Collectors.toSet()))))
+                        .nome(usuario.getNome())
+                        .endereco(enderecoRepository.save(usuarioDTO.getEndereco()))
+                        .contato(contatoRepository.save(usuarioDTO.getContato()))
+                        .atividades(new HashSet<>(atividadeRepository.saveAll(usuarioDTO.getAtividades())))
                         .build());
     }
 
     @Async
     @Transactional
-    public void deletar(UUID id) {
+    public void deletar(UUID id) throws NotExistException {
+        if (!usuarioRepository.existsById(id))
+            throw new NotExistException("Usuário não cadastrado");
         log.info("Deletando usuário {}", id);
         Usuario usuario = usuarioRepository.findUsuarioById(id);
         usuarioRepository.deleteById(id);
@@ -137,7 +92,9 @@ public class UsuarioService {
         );
     }
 
-    public Usuario visualizar(UUID id) {
+    public Usuario visualizar(UUID id) throws NotExistException {
+        if (!usuarioRepository.existsById(id))
+            throw new NotExistException("Usuário não cadastrado");
         log.info("Retornando usuário {}", id);
         return usuarioRepository.findUsuarioById(id);
     }

@@ -8,7 +8,5 @@ import java.util.UUID;
 @Data
 public class Request {
     @NotNull
-    private UUID id;
-    @NotNull
     private UUID token;
 }

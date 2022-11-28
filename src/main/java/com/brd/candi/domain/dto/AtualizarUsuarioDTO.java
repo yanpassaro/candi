@@ -6,30 +6,25 @@ import com.brd.candi.domain.entity.Endereco;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
+import java.util.UUID;
 
 import static org.springframework.util.Base64Utils.encodeToString;
 
 @Data
 @Builder
-public class UsuarioDTO {
-    @Email
+public class AtualizarUsuarioDTO {
     @NotNull
-    @NotBlank
-    @NotEmpty
-    @Size(min = 8, max = 30)
-    private String email;
+    private UUID id;
     @NotNull
     @NotBlank
     @NotEmpty
     @Size(min = 8, max = 30)
     private String senha;
-    @NotNull
-    @NotBlank
-    @NotEmpty
-    @Size(max = 20)
-    private String nome;
     @Size(max = 20)
     private String sobrenome;
     private ContatoDTO contato;
@@ -42,6 +37,7 @@ public class UsuarioDTO {
 
     public Endereco getEndereco() {
         return Endereco.builder()
+                .id(endereco.getId())
                 .estado(endereco.getEstado())
                 .cidade(endereco.getCidade())
                 .build();
@@ -49,6 +45,7 @@ public class UsuarioDTO {
 
     public Contato getContato() {
         return Contato.builder()
+                .id(contato.getId())
                 .email(contato.getEmail())
                 .blog(contato.getSite())
                 .telefone(contato.getTelefone())
@@ -59,6 +56,7 @@ public class UsuarioDTO {
     public List<Atividade> getAtividades() {
         return atividades.stream().map(atividade ->
                 Atividade.builder()
+                        .id(atividade.getId())
                         .local(atividade.getLocal())
                         .nome(atividade.getNome())
                         .dataInicio(atividade.getDataInicio())
@@ -67,4 +65,5 @@ public class UsuarioDTO {
                         .build()
         ).distinct().toList();
     }
+
 }

@@ -11,4 +11,8 @@ public enum Tipo {
     Tipo(String tipoNome) {
         this.tipoNome = tipoNome;
     }
+
+    public String getTipoNome() {
+        return tipoNome;
+    }
 }

@@ -2,13 +2,11 @@ package com.brd.candi.service;
 
 import com.brd.candi.domain.dto.EmailDTO;
 import com.brd.candi.domain.dto.EmpresaDTO;
-import com.brd.candi.domain.entity.Contato;
-import com.brd.candi.domain.entity.Endereco;
-import com.brd.candi.domain.entity.empresa.Admin;
 import com.brd.candi.domain.entity.empresa.Empresa;
 import com.brd.candi.domain.model.EmpresaModel;
-import com.brd.candi.exception.custom.AlreadyExistsException;
+import com.brd.candi.exception.custom.IncorrectCedentialsException;
 import com.brd.candi.exception.custom.NotAuthorizedException;
+import com.brd.candi.exception.custom.NotExistException;
 import com.brd.candi.repository.AdminRepository;
 import com.brd.candi.repository.ContatoRepository;
 import com.brd.candi.repository.EmpresaRepository;
@@ -25,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import static com.brd.candi.domain.enumaration.Role.ADMIN;
 
@@ -40,44 +37,20 @@ public class EmpresaService {
     final ContatoRepository contatoRepository;
 
     @Transactional
-    public void salvar(EmpresaDTO empresaDTO) throws AlreadyExistsException {
+    public void salvar(EmpresaDTO empresaDTO)
+            throws IncorrectCedentialsException {
         if (empresaRepository.existsEmpresaByCnpj(empresaDTO.getCnpj()))
-            throw new AlreadyExistsException("CNPJ já foi cadastrado");
+            throw new IncorrectCedentialsException("CNPJ já cadastrado");
+        if (empresaDTO.getAdmins().stream().anyMatch(admin -> adminRepository.existsAdminByEmail(admin.getEmail())))
+            throw new IncorrectCedentialsException("Email já cadastrado");
         Empresa empresa = empresaRepository.save(
                 Empresa.builder()
                         .cnpj(empresaDTO.getCnpj())
                         .nome(empresaDTO.getNome())
                         .sobre(empresaDTO.getSobre())
-                        .imagemUrl(empresaDTO.getImagemUrl())
-                        .endereco(enderecoRepository.save(
-                                Endereco.builder()
-                                        .cep(empresaDTO.getEndereco().getCep())
-                                        .cidade(empresaDTO.getEndereco().getCidade())
-                                        .estado(empresaDTO.getEndereco().getEstado())
-                                        .build()
-                        ))
-                        .contato(contatoRepository.save(
-                                Contato.builder()
-                                        .email(empresaDTO.getContato().getEmail())
-                                        .blog(empresaDTO.getContato().getBlog())
-                                        .telefone(empresaDTO.getContato().getTelefone())
-                                        .portfolio(empresaDTO.getContato().getPortfolio())
-                                        .build()
-                        ))
-                        .recrutadores(new HashSet<>(adminRepository.saveAll(
-                                empresaDTO.getAdministradores().stream().map(
-                                        adminDTO -> {
-                                            return Admin.builder()
-                                                    .nome(adminDTO.getNome())
-                                                    .sobrenome(adminDTO.getSobrenome())
-                                                    .email(adminDTO.getEmail())
-                                                    .senha(adminDTO.getSenha())
-                                                    .role(adminDTO.getRole().getRoleNome())
-                                                    .sobre(adminDTO.getSobre())
-                                                    .build();
-                                        }
-
-                                ).limit(5).collect(Collectors.toSet()))))
+                        .endereco(enderecoRepository.save(empresaDTO.getEndereco()))
+                        .contato(contatoRepository.save(empresaDTO.getContato()))
+                        .recrutadores(adminRepository.saveAll(new HashSet<>(empresaDTO.getAdmins())))
                         .build()
         );
         log.info("Cadastrando nova empresa {}", empresa.getId());
@@ -94,7 +67,7 @@ public class EmpresaService {
     @Transactional
     public void atualizar(EmpresaDTO empresaDTO, UUID id)
             throws NotAuthorizedException {
-        if (adminRepository.existsAdminByIdAndRole(id, ADMIN.getRoleNome()))
+        if (!empresaRepository.existsEmpresaByRecrutadoresIdAndRecrutadoresRole(id, ADMIN.getRoleNome()))
             throw new NotAuthorizedException("Sem autorização para realizar operação");
         Empresa empresa = empresaRepository.findEmpresaByRecrutadoresId(id);
         empresaRepository.save(
@@ -103,38 +76,9 @@ public class EmpresaService {
                         .cnpj(empresaDTO.getCnpj())
                         .nome(empresaDTO.getNome())
                         .sobre(empresaDTO.getSobre())
-                        .imagemUrl(empresaDTO.getImagemUrl())
-                        .endereco(enderecoRepository.save(
-                                Endereco.builder()
-                                        .id(empresa.getEndereco().getId())
-                                        .cep(empresaDTO.getEndereco().getCep())
-                                        .cidade(empresaDTO.getEndereco().getCidade())
-                                        .estado(empresaDTO.getEndereco().getEstado())
-                                        .build()
-                        ))
-                        .contato(contatoRepository.save(
-                                Contato.builder()
-                                        .id(empresa.getContato().getId())
-                                        .email(empresaDTO.getContato().getEmail())
-                                        .blog(empresaDTO.getContato().getBlog())
-                                        .telefone(empresaDTO.getContato().getTelefone())
-                                        .portfolio(empresaDTO.getContato().getPortfolio())
-                                        .build()
-                        ))
-                        .recrutadores(new HashSet<>(adminRepository.saveAll(
-                                empresaDTO.getAdministradores().stream().map(
-                                        adminDTO -> {
-                                            return Admin.builder()
-                                                    .id(adminDTO.getId())
-                                                    .nome(adminDTO.getNome())
-                                                    .sobrenome(adminDTO.getSobrenome())
-                                                    .email(adminDTO.getEmail())
-                                                    .senha(adminDTO.getSenha())
-                                                    .role(adminDTO.getRole().getRoleNome())
-                                                    .sobre(adminDTO.getSobre())
-                                                    .build();
-                                        }
-                                ).limit(5).collect(Collectors.toSet()))))
+                        .endereco(enderecoRepository.save(empresaDTO.getEndereco()))
+                        .contato(contatoRepository.save(empresaDTO.getContato()))
+                        .recrutadores(adminRepository.saveAll(empresaDTO.getAdmins()))
                         .build()
         );
         log.info("Atualizando empresa {}", empresa.getId());
@@ -143,21 +87,21 @@ public class EmpresaService {
     @Async
     @Transactional
     public void deletar(UUID id) throws NotAuthorizedException {
-        if (adminRepository.existsAdminByIdAndRole(id, ADMIN.getRoleNome()))
+        if (!empresaRepository.existsEmpresaByRecrutadoresIdAndRecrutadoresRole(id, ADMIN.getRoleNome()))
             throw new NotAuthorizedException("Sem autorização para realizar operação");
         Empresa empresa = empresaRepository.findEmpresaByRecrutadoresId(id);
-        log.info("Deletando empresa {}", empresa.getId());
+        log.info("Deletando a empresa {}", empresa.getId());
         empresa.getRecrutadores().forEach(admin -> {
             adminRepository.deleteById(admin.getId());
-            log.info("Deletando admin {}", admin.getId());
+            log.info("Deletando o admin {}", admin.getId());
         });
         enderecoRepository.deleteById(empresa.getEndereco().getId());
         empresaRepository.deleteById(empresa.getId());
-        if (!empresa.getEmail().isBlank()) {
+        if (!empresa.getContato().getEmail().isBlank()) {
             emailSenderService.enviarEmail(EmailDTO.builder()
-                    .destino(empresa.getEmail())
-                    .assunto("Sua empresa foi excluída")
-                    .conteudo("Sua empresa foi deletada com sucesso.")
+                    .destino(empresa.getContato().getEmail())
+                    .assunto("Conta excluída")
+                    .conteudo("Empresa foi excluída com sucesso.")
                     .build()
             );
         }
@@ -167,15 +111,13 @@ public class EmpresaService {
         Pageable pageable = PageRequest.of(page, 20);
         log.info("Listando empresas");
         return empresaRepository.findAll(pageable).map(
-                empresa -> {
-                    return EmpresaModel.builder()
-                            .nome(empresa.getNome())
-                            .cnpj(empresa.getCnpj())
-                            .sobre(empresa.getSobre())
-                            .email(empresa.getContato().getEmail())
-                            .telefone(empresa.getContato().getTelefone())
-                            .build();
-                }
+                empresa -> EmpresaModel.builder()
+                        .nome(empresa.getNome())
+                        .cnpj(empresa.getCnpj())
+                        .sobre(empresa.getSobre())
+                        .email(empresa.getContato().getEmail())
+                        .telefone(empresa.getContato().getTelefone())
+                        .build()
         ).toList();
     }
 }

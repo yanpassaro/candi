@@ -1,5 +1,6 @@
 package com.brd.candi.controller;
 
+import com.brd.candi.domain.dto.AtualizarUsuarioDTO;
 import com.brd.candi.domain.dto.LoginDTO;
 import com.brd.candi.domain.dto.UsuarioDTO;
 import com.brd.candi.domain.model.Response;
@@ -14,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Map;
+import java.util.List;
 import java.util.UUID;
 
 import static java.time.LocalDate.now;
@@ -24,71 +25,71 @@ import static org.springframework.http.HttpStatus.OK;
 @RestController
 @RequestMapping("/api/candidato")
 @RequiredArgsConstructor
-@CrossOrigin(allowedHeaders = "*")
+@CrossOrigin(origins = "http://localhost:4200")
 public class UsuarioController {
     final UsuarioService usuarioService;
     final AuthService authService;
 
     @GetMapping("/visualizar")
     @ResponseStatus(OK)
-    public @ResponseBody ResponseEntity<Response> visualizar(@RequestParam("token") UUID token)
-            throws NotAuthorizedException {
+    public ResponseEntity<Response<Object>> visualizar(@RequestHeader("token") UUID token)
+            throws NotAuthorizedException, NotExistException {
         TokenRedis tokenRedis = authService.autenticar(token);
         return ResponseEntity.ok().body(Response.builder()
-                .data(now())
+                .date(now())
                 .status(OK).statusCode(OK.value())
-                .mensagem("Exibindo usuário")
-                .dados(Map.of("Usuário", usuarioService.visualizar(tokenRedis.getIdUser())))
+                .message("Exibindo usuário")
+                .data(usuarioService.visualizar(tokenRedis.getIdUser()))
                 .build());
     }
 
     @GetMapping(path = "/login")
     @ResponseStatus(OK)
-    public @ResponseBody ResponseEntity<Response> login(@RequestBody @Valid LoginDTO loginDTO)
+    public ResponseEntity<Response<Object>> login(@RequestBody @Valid LoginDTO loginDTO)
             throws NotExistException {
         return ResponseEntity.ok().body(Response.builder()
-                .data(now())
+                .date(now())
                 .status(OK).statusCode(OK.value())
-                .mensagem("Login efetuado com sucesso")
-                .dados(Map.of("Login", authService.login(loginDTO)))
+                .message("Login efetuado com sucesso")
+                .data(List.of(authService.login(loginDTO)))
                 .build());
     }
 
     @PostMapping("/cadastrar")
     @ResponseStatus(CREATED)
-    public @ResponseBody ResponseEntity<Response> cadastrar(@RequestBody @Valid UsuarioDTO usuarioDTO)
+    public ResponseEntity<Response<Object>> cadastrar(@RequestBody @Valid UsuarioDTO usuarioDTO)
             throws AlreadyExistsException {
         usuarioService.cadastrar(usuarioDTO);
         return ResponseEntity.ok(Response.builder()
-                .data(now())
+                .date(now())
                 .status(CREATED).statusCode(CREATED.value())
-                .mensagem("Cadastro realizado com sucesso")
+                .message("Cadastro realizado com sucesso")
                 .build());
     }
 
-    @PutMapping ("/atualizar")
+    @PutMapping("/atualizar")
     @ResponseStatus(OK)
-    public @ResponseBody ResponseEntity<Response> atualizar(@RequestBody @Valid UsuarioDTO usuarioDTO, @RequestParam("token") UUID token)
-            throws NotAuthorizedException {
+    public ResponseEntity<Response<Object>> atualizar(@RequestBody @Valid AtualizarUsuarioDTO usuarioDTO, @RequestHeader("token") UUID token)
+            throws NotAuthorizedException, NotExistException {
         TokenRedis tokenRedis = authService.autenticar(token);
         usuarioService.atualizar(usuarioDTO, tokenRedis.getIdUser());
         return ResponseEntity.ok(Response.builder()
-                .data(now())
+                .date(now())
                 .status(OK).statusCode(OK.value())
-                .mensagem("Atualização realizada com sucesso")
+                .message("Atualização realizada com sucesso")
                 .build());
     }
 
-    @DeleteMapping ("/deletar")
+    @DeleteMapping("/deletar")
     @ResponseStatus(OK)
-    public @ResponseBody ResponseEntity<Response> deletar(@RequestParam("token") UUID token)
-            throws NotAuthorizedException {
+    public ResponseEntity<Response<Object>> deletar(@RequestHeader("token") UUID token)
+            throws NotAuthorizedException, NotExistException {
         TokenRedis tokenRedis = authService.autenticar(token);
         usuarioService.deletar(tokenRedis.getToken());
         return ResponseEntity.ok(Response.builder()
-                .data(now())
+                .date(now())
                 .status(OK).statusCode(OK.value())
-                .mensagem("Solicitação recebida com sucesso")
+                .message("Solicitação recebida com sucesso")
                 .build());
     }
 }

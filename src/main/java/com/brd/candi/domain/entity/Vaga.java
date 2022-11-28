@@ -1,17 +1,18 @@
 package com.brd.candi.domain.entity;
 
 import com.brd.candi.domain.entity.empresa.Empresa;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
-@Data
+@Getter
+@Setter
+@ToString
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,7 +25,24 @@ public class Vaga {
     private String tipo;
     private String beneficios;
     private String sobre;
+    private String experiencia;
     private LocalDate dataTermino;
     @ManyToOne
     private Empresa empresa;
+    @OneToMany
+    @ToString.Exclude
+    private List<Pergunta> perguntas;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Vaga vaga = (Vaga) o;
+        return id != null && Objects.equals(id, vaga.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

@@ -1,8 +1,9 @@
 package com.brd.candi.domain.enumaration;
 
 public enum Status {
-    APROVADO("Parabéns!!! você passou para a próxima fase do processo seletivo"),
-    REPROVADO("Infelizmente não foi dessa vez :(");
+    APROVADO("Aprovado"),
+    PENDENTE("Pendente"),
+    REPROVADO("Reprovado");
 
     final String statusNome;
 

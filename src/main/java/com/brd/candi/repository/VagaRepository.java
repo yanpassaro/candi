@@ -6,4 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.UUID;
 
 public interface VagaRepository extends JpaRepository<Vaga, UUID> {
+    boolean existsVagaByNomeAndEmpresaRecrutadoresId(String nome, UUID id);
+
+    boolean existsVagaByEmpresaRecrutadoresId(UUID id);
+
+    Vaga findVagaById(UUID id);
 }

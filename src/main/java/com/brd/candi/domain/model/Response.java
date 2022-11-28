@@ -5,16 +5,16 @@ import lombok.Data;
 import org.springframework.http.HttpStatus;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Map;
+import java.util.List;
 
 @Data
 @Builder
-public class Response {
-    private LocalDate data;
+public class Response<R> {
+    private LocalDate date;
     private Integer statusCode;
     private HttpStatus status;
-    private String mensagem;
-    private String devMensagem;
-    private Map<?, ?> dados;
+    private String message;
+    private String devMessage;
+    private R data;
+    private List<?> datas;
 }

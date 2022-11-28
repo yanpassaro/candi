@@ -14,6 +14,7 @@ public class EmpresaModel {
     private String sobre;
     private String email;
     private String telefone;
-    private String blog;
-    private String portfolio;
+    private String site;
+    private String estado;
+    private String cidade;
 }

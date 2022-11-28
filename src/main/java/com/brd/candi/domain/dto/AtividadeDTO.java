@@ -27,7 +27,6 @@ public class AtividadeDTO {
     private String local;
     @Size(max = 300)
     private String sobre;
-    @NotNull
     private LocalDate dataInicio;
     private LocalDate dataTermino;
     private boolean ativo;

@@ -8,5 +8,9 @@ import java.util.UUID;
 public interface EmpresaRepository extends JpaRepository<Empresa, UUID> {
     Empresa findEmpresaByRecrutadoresId(UUID id);
 
+    boolean existsByRecrutadoresId(UUID id);
+
     boolean existsEmpresaByCnpj(String cnpj);
+
+    boolean existsEmpresaByRecrutadoresIdAndRecrutadoresRole(UUID id, String roleNome);
 }

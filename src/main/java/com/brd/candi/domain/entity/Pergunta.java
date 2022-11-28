@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -15,26 +14,21 @@ import java.util.UUID;
 @Setter
 @ToString
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-public class Atividade {
+public class Pergunta {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-    private String nome;
-    private String local;
-    private String sobre;
-    private LocalDate dataInicio;
-    private LocalDate dataTermino;
-    private boolean ativo;
+    private String perguntaV;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Atividade atividade = (Atividade) o;
-        return id != null && Objects.equals(nome, atividade.nome);
+        Pergunta pergunta = (Pergunta) o;
+        return id != null && Objects.equals(id, pergunta.id);
     }
 
     @Override

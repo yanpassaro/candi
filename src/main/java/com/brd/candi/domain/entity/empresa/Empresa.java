@@ -2,16 +2,17 @@ package com.brd.candi.domain.entity.empresa;
 
 import com.brd.candi.domain.entity.Contato;
 import com.brd.candi.domain.entity.Endereco;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
-@Data
+@Getter
+@Setter
+@ToString
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,14 +24,25 @@ public class Empresa {
     private String nome;
     @Column(unique = true)
     private String cnpj;
-    private String email;
     private String sobre;
-    private String imagemUrl;
     @OneToOne
     private Endereco endereco;
     @OneToOne
     private Contato contato;
     @OneToMany
-    private Set<Admin> recrutadores;
+    @ToString.Exclude
+    private List<Admin> recrutadores;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Empresa empresa = (Empresa) o;
+        return id != null && Objects.equals(id, empresa.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

@@ -1,10 +1,7 @@
 package com.brd.candi.exception;
 
 import com.brd.candi.domain.model.Response;
-import com.brd.candi.exception.custom.AlreadyExistsException;
-import com.brd.candi.exception.custom.NotAuthorizedException;
-import com.brd.candi.exception.custom.NotExistException;
-import com.brd.candi.exception.custom.NotLoggedException;
+import com.brd.candi.exception.custom.*;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.core.annotation.Order;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -30,8 +27,8 @@ public class GlobalExceptionHandler {
     @ResponseStatus(BAD_REQUEST)
     public @ResponseBody ResponseEntity<Response> handleMethodArgumentNotValidException() {
         return ResponseEntity.badRequest().body(Response.builder()
-                .mensagem(BAD_REQUEST.getReasonPhrase())
-                .data(now())
+                .message(BAD_REQUEST.getReasonPhrase())
+                .date(now())
                 .statusCode(BAD_REQUEST.value())
                 .status(BAD_REQUEST)
                 .build());
@@ -41,8 +38,8 @@ public class GlobalExceptionHandler {
     @ResponseStatus(BAD_REQUEST)
     public @ResponseBody ResponseEntity<Response> handleNotLoggedException() {
         return ResponseEntity.badRequest().body(Response.builder()
-                .mensagem("Json invalido")
-                .data(now())
+                .message("Json invalido")
+                .date(now())
                 .statusCode(BAD_REQUEST.value())
                 .status(BAD_REQUEST)
                 .build());
@@ -52,8 +49,8 @@ public class GlobalExceptionHandler {
     @ResponseStatus(BAD_REQUEST)
     public @ResponseBody ResponseEntity<Response> handleEntityNotFound() {
         return ResponseEntity.badRequest().body(Response.builder()
-                .mensagem(BAD_REQUEST.getReasonPhrase())
-                .data(now())
+                .message(BAD_REQUEST.getReasonPhrase())
+                .date(now())
                 .statusCode(BAD_REQUEST.value())
                 .status(BAD_REQUEST)
                 .build());
@@ -63,8 +60,8 @@ public class GlobalExceptionHandler {
     @ResponseStatus(INTERNAL_SERVER_ERROR)
     public @ResponseBody ResponseEntity<Response> handleDataIntegrityViolationException() {
         return ResponseEntity.internalServerError().body(Response.builder()
-                .mensagem(INTERNAL_SERVER_ERROR.getReasonPhrase())
-                .data(now())
+                .message(INTERNAL_SERVER_ERROR.getReasonPhrase())
+                .date(now())
                 .statusCode(INTERNAL_SERVER_ERROR.value())
                 .status(INTERNAL_SERVER_ERROR)
                 .build());
@@ -74,8 +71,8 @@ public class GlobalExceptionHandler {
     @ResponseStatus(BAD_REQUEST)
     public @ResponseBody ResponseEntity<Response> handleUserAlreadyExistsException(AlreadyExistsException ex) {
         return ResponseEntity.badRequest().body(Response.builder()
-                .mensagem(ex.getMessage())
-                .data(now())
+                .message(ex.getMessage())
+                .date(now())
                 .statusCode(BAD_REQUEST.value())
                 .status(BAD_REQUEST)
                 .build());
@@ -85,8 +82,8 @@ public class GlobalExceptionHandler {
     @ResponseStatus(BAD_REQUEST)
     public @ResponseBody ResponseEntity<Response> handleNotAuthorizedException(NotAuthorizedException ex) {
         return ResponseEntity.badRequest().body(Response.builder()
-                .mensagem(ex.getMessage())
-                .data(now())
+                .message(ex.getMessage())
+                .date(now())
                 .statusCode(BAD_REQUEST.value())
                 .status(BAD_REQUEST)
                 .build());
@@ -96,8 +93,8 @@ public class GlobalExceptionHandler {
     @ResponseStatus(BAD_REQUEST)
     public @ResponseBody ResponseEntity<Response> handleNotLoggedException(NotLoggedException ex) {
         return ResponseEntity.badRequest().body(Response.builder()
-                .mensagem(ex.getMessage())
-                .data(now())
+                .message(ex.getMessage())
+                .date(now())
                 .statusCode(BAD_REQUEST.value())
                 .status(BAD_REQUEST)
                 .build());
@@ -107,8 +104,19 @@ public class GlobalExceptionHandler {
     @ResponseStatus(BAD_REQUEST)
     public @ResponseBody ResponseEntity<Response> handleNotExistException(NotExistException ex) {
         return ResponseEntity.badRequest().body(Response.builder()
-                .mensagem(ex.getMessage())
-                .data(now())
+                .message(ex.getMessage())
+                .date(now())
+                .statusCode(BAD_REQUEST.value())
+                .status(BAD_REQUEST)
+                .build());
+    }
+
+    @ExceptionHandler(value = IncorrectCedentialsException.class)
+    @ResponseStatus(BAD_REQUEST)
+    public @ResponseBody ResponseEntity<Response> handleIncorrectCedentialsException(IncorrectCedentialsException ex) {
+        return ResponseEntity.badRequest().body(Response.builder()
+                .message(ex.getMessage())
+                .date(now())
                 .statusCode(BAD_REQUEST.value())
                 .status(BAD_REQUEST)
                 .build());
