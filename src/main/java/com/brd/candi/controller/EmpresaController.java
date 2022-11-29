@@ -1,12 +1,10 @@
 package com.brd.candi.controller;
 
-import com.brd.candi.domain.dto.CandidaturaDTO;
 import com.brd.candi.domain.dto.EmpresaDTO;
 import com.brd.candi.domain.dto.LoginDTO;
 import com.brd.candi.domain.enumaration.Status;
 import com.brd.candi.domain.model.Response;
 import com.brd.candi.domain.redis.TokenRedis;
-import com.brd.candi.exception.custom.AlreadyExistsException;
 import com.brd.candi.exception.custom.IncorrectCedentialsException;
 import com.brd.candi.exception.custom.NotAuthorizedException;
 import com.brd.candi.exception.custom.NotExistException;
@@ -29,7 +27,7 @@ import static org.springframework.http.HttpStatus.OK;
 @RestController
 @RequestMapping("/api/empresa")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 public class EmpresaController {
     final EmpresaService empresaService;
     final AuthService authService;

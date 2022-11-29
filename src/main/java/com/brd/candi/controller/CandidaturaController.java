@@ -23,7 +23,7 @@ import static org.springframework.http.HttpStatus.OK;
 @RestController
 @RequestMapping("/api/candidatura")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 public class CandidaturaController {
     final CandidaturaService candidaturaService;
     final AuthService authService;

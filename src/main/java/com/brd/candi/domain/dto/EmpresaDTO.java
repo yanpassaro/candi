@@ -12,12 +12,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 @Data
 @Builder
 public class EmpresaDTO {
-    private UUID id;
     @NotEmpty
     @NotNull
     @NotBlank
