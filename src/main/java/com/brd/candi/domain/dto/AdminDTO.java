@@ -31,7 +31,6 @@ public class AdminDTO {
     @NotEmpty
     @Size(min = 8, max = 30)
     private String senha;
-    private String sobre;
 
     public String getSenha() {
         return encodeToString(encodeToString(senha.getBytes()).getBytes());
