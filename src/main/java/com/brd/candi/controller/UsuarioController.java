@@ -84,7 +84,7 @@ public class UsuarioController {
     public ResponseEntity<Response<Object>> deletar(@RequestHeader("token") UUID token)
             throws NotAuthorizedException, NotExistException {
         TokenRedis tokenRedis = authService.autenticar(token);
-        usuarioService.deletar(tokenRedis.getToken());
+        usuarioService.deletar(tokenRedis.getIdUser());
         return ResponseEntity.ok(Response.builder()
                 .date(now())
                 .status(OK).statusCode(OK.value())

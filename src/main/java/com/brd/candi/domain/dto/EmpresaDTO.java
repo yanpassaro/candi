@@ -56,7 +56,6 @@ public class EmpresaDTO {
                         .email(admin.getEmail())
                         .senha(admin.getSenha())
                         .sobre(admin.getSobre())
-                        .role(admin.getRole().getRoleNome())
                         .build()
         ).distinct().limit(10).toList();
     }

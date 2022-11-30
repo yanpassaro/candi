@@ -1,6 +1,5 @@
 package com.brd.candi.domain.dto;
 
-import com.brd.candi.domain.entity.Atividade;
 import com.brd.candi.domain.entity.Contato;
 import com.brd.candi.domain.entity.Endereco;
 import lombok.Builder;
@@ -34,7 +33,6 @@ public class UsuarioDTO {
     private String sobrenome;
     private ContatoDTO contato;
     private EnderecoDTO endereco;
-    private List<AtividadeDTO> atividades;
 
     public String getSenha() {
         return encodeToString(encodeToString(senha.getBytes()).getBytes());
@@ -54,17 +52,5 @@ public class UsuarioDTO {
                 .telefone(contato.getTelefone())
                 .portfolio(contato.getPortfolio())
                 .build();
-    }
-
-    public List<Atividade> getAtividades() {
-        return atividades.stream().map(atividade ->
-                Atividade.builder()
-                        .local(atividade.getLocal())
-                        .nome(atividade.getNome())
-                        .dataInicio(atividade.getDataInicio())
-                        .dataTermino(atividade.getDataTermino())
-                        .sobre(atividade.getSobre())
-                        .build()
-        ).distinct().toList();
     }
 }

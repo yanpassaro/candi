@@ -41,18 +41,18 @@ public class CandidaturaService {
     final EmailSenderService emailSenderService;
 
     @Transactional
-    public void cadastrar(CandidaturaDTO candidaturaDTO, UUID id)
+    public void cadastrar(CandidaturaDTO candidaturaDTO, UUID vaga, UUID id)
             throws AlreadyExistsException {
-        if (!candidaturaRepository.existsCandidaturaByVagaIdAndCandidatoId(candidaturaDTO.getVaga(), id))
+        if (!candidaturaRepository.existsCandidaturaByVagaIdAndCandidatoId(vaga, id))
             throw new AlreadyExistsException("Candidatura já realizada");
-        log.info("Novo registro para a vaga {} do usuário {}", candidaturaDTO.getVaga(), id);
+        log.info("Novo registro para a vaga {} do usuário {}", vaga, id);
         Usuario usuario = usuarioRepository.findUsuarioById(id);
         Candidatura candidatura = candidaturaRepository.save(
                 Candidatura.builder()
                         .candidato(usuario)
                         .dataEnvio(now())
                         .status(PENDENTE.getStatusNome())
-                        .vaga(vagaRepository.findVagaById(candidaturaDTO.getVaga()))
+                        .vaga(vagaRepository.findVagaById(vaga))
                         .respostas(respostaRepository.saveAll(candidaturaDTO.getRespostas()))
                         .build()
         );
@@ -125,7 +125,6 @@ public class CandidaturaService {
         return CandidaturaModel.builder()
                 .candidato(UsuarioModel.builder()
                         .nome(candidatura.getCandidato().getNome())
-                        .atividades(candidatura.getCandidato().getAtividades())
                         .sobrenome(candidatura.getCandidato().getSobrenome())
                         .contato(candidatura.getCandidato().getContato())
                         .endereco(candidatura.getCandidato().getEndereco())

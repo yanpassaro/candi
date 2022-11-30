@@ -29,9 +29,6 @@ public class Usuario {
     private Endereco endereco;
     @OneToOne
     private Contato contato;
-    @OneToMany
-    @ToString.Exclude
-    private Set<Atividade> atividades;
 
     @Override
     public boolean equals(Object o) {

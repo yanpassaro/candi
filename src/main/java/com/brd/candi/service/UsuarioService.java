@@ -6,7 +6,6 @@ import com.brd.candi.domain.dto.UsuarioDTO;
 import com.brd.candi.domain.entity.Usuario;
 import com.brd.candi.exception.custom.AlreadyExistsException;
 import com.brd.candi.exception.custom.NotExistException;
-import com.brd.candi.repository.AtividadeRepository;
 import com.brd.candi.repository.ContatoRepository;
 import com.brd.candi.repository.EnderecoRepository;
 import com.brd.candi.repository.UsuarioRepository;
@@ -26,7 +25,6 @@ import java.util.UUID;
 public class UsuarioService {
     final UsuarioRepository usuarioRepository;
     final EnderecoRepository enderecoRepository;
-    final AtividadeRepository atividadeRepository;
     final EmailSenderService emailSenderService;
     final ContatoRepository contatoRepository;
 
@@ -45,7 +43,6 @@ public class UsuarioService {
                         .sobrenome(usuarioDTO.getSobrenome())
                         .endereco(enderecoRepository.save(usuarioDTO.getEndereco()))
                         .contato(contatoRepository.save(usuarioDTO.getContato()))
-                        .atividades(new HashSet<>(atividadeRepository.saveAll(usuarioDTO.getAtividades())))
                         .build()
         );
         emailSenderService.enviarEmail(EmailDTO.builder()
@@ -72,7 +69,6 @@ public class UsuarioService {
                         .nome(usuario.getNome())
                         .endereco(enderecoRepository.save(usuarioDTO.getEndereco()))
                         .contato(contatoRepository.save(usuarioDTO.getContato()))
-                        .atividades(new HashSet<>(atividadeRepository.saveAll(usuarioDTO.getAtividades())))
                         .build());
     }
 

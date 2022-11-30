@@ -31,8 +31,6 @@ public class AdminDTO {
     @NotEmpty
     @Size(min = 8, max = 30)
     private String senha;
-    @NotNull
-    private Role role;
     private String sobre;
 
     public String getSenha() {

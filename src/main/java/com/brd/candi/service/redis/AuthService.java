@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
+import static com.brd.candi.domain.enumaration.Role.ADMIN;
 import static com.brd.candi.domain.enumaration.Role.USUARIO;
 
 @Slf4j
@@ -66,7 +67,7 @@ public class AuthService {
             return tokenRepository.save(TokenRedis.builder()
                     .idUser(admin.getId())
                     .token(UUID.randomUUID())
-                    .role(admin.getRole())
+                    .role(ADMIN.getRoleNome())
                     .build()
             );
         }

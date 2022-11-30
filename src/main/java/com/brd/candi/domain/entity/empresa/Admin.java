@@ -23,7 +23,6 @@ public class Admin {
     @Column(unique = true)
     private String email;
     private String senha;
-    private String role;
     private String sobre;
 
     @Override

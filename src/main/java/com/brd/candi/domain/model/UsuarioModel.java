@@ -1,6 +1,5 @@
 package com.brd.candi.domain.model;
 
-import com.brd.candi.domain.entity.Atividade;
 import com.brd.candi.domain.entity.Contato;
 import com.brd.candi.domain.entity.Endereco;
 import lombok.Builder;
@@ -18,5 +17,4 @@ public class UsuarioModel {
     private String sobre;
     private Endereco endereco;
     private Contato contato;
-    private Set<Atividade> atividades;
 }

@@ -32,20 +32,20 @@ public class CandidaturaController {
     public ResponseEntity<Response<Object>> cadastrar(@RequestHeader("token") UUID token, @DefaultValue("0") @RequestParam("page") Integer page)
             throws NotExistException, NotAuthorizedException {
         TokenRedis tokenRedis = authService.autenticar(token);
-        candidaturaService.visualizar(tokenRedis.getIdUser(), page);
         return ResponseEntity.ok(Response.builder()
                 .date(now())
                 .status(CREATED).statusCode(CREATED.value())
                 .message("Cadastrado com sucesso")
+                .data(candidaturaService.visualizar(tokenRedis.getIdUser(), page))
                 .build());
     }
 
     @PostMapping("/cadastrar")
     @ResponseStatus(OK)
-    public ResponseEntity<Response<Object>> cadastrar(@Valid @RequestBody CandidaturaDTO candidaturaDTO, @RequestHeader("token") UUID token)
+    public ResponseEntity<Response<Object>> cadastrar(@Valid @RequestBody CandidaturaDTO candidaturaDTO,@RequestParam("vaga") UUID id, @RequestHeader("token") UUID token)
             throws NotAuthorizedException, AlreadyExistsException {
         TokenRedis tokenRedis = authService.autenticar(token);
-        candidaturaService.cadastrar(candidaturaDTO, tokenRedis.getIdUser());
+        candidaturaService.cadastrar(candidaturaDTO, id, tokenRedis.getIdUser());
         return ResponseEntity.ok(Response.builder()
                 .date(now())
                 .status(CREATED).statusCode(CREATED.value())
