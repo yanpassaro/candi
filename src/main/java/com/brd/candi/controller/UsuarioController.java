@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.UUID;
 
 import static java.time.LocalDate.now;
@@ -43,7 +42,7 @@ public class UsuarioController {
                 .build());
     }
 
-    @GetMapping(path = "/login")
+    @PostMapping(path = "/login")
     @ResponseStatus(OK)
     public ResponseEntity<Response<Object>> login(@RequestBody @Valid LoginDTO loginDTO)
             throws NotExistException {
@@ -51,7 +50,7 @@ public class UsuarioController {
                 .date(now())
                 .status(OK).statusCode(OK.value())
                 .message("Login efetuado com sucesso")
-                .data(List.of(authService.login(loginDTO)))
+                .data(authService.login(loginDTO))
                 .build());
     }
 

@@ -44,7 +44,7 @@ public class EmpresaController {
                 .build());
     }
 
-    @GetMapping(path = "/login")
+    @PostMapping(path = "/login")
     @ResponseStatus(OK)
     public ResponseEntity<Response<Object>> login(@RequestBody @Valid LoginDTO loginDTO)
             throws NotExistException {
@@ -52,7 +52,7 @@ public class EmpresaController {
                 .date(now())
                 .status(OK).statusCode(OK.value())
                 .message("Login efetuado com sucesso")
-                .data(List.of(authService.loginAdmin(loginDTO)))
+                .data(authService.loginAdmin(loginDTO))
                 .build());
     }
 

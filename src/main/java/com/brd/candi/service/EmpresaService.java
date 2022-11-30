@@ -116,6 +116,9 @@ public class EmpresaService {
                         .cnpj(empresa.getCnpj())
                         .sobre(empresa.getSobre())
                         .email(empresa.getContato().getEmail())
+                        .site(empresa.getContato().getBlog())
+                        .cidade(empresa.getEndereco().getCidade())
+                        .estado(empresa.getEndereco().getEstado())
                         .telefone(empresa.getContato().getTelefone())
                         .build()
         ).toList();

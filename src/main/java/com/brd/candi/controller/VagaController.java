@@ -29,7 +29,7 @@ public class VagaController {
 
     @PostMapping("/cadastrar")
     @ResponseStatus(OK)
-    public ResponseEntity<Response<Object>> cadastrar(@Valid @RequestBody VagaDTO vagaDTO, @RequestParam("token") UUID token)
+    public ResponseEntity<Response<Object>> cadastrar(@Valid @RequestBody VagaDTO vagaDTO, @RequestHeader("token") UUID token)
             throws AlreadyExistsException, NotAuthorizedException {
         TokenRedis tokenRedis = authService.autenticar(token);
         vagaService.cadastrar(vagaDTO, tokenRedis.getIdUser());
@@ -65,7 +65,7 @@ public class VagaController {
 
     @DeleteMapping("/deletar")
     @ResponseStatus(OK)
-    public ResponseEntity<Response<Object>> deletar(@RequestParam("id") UUID id, @RequestParam("token") UUID token)
+    public ResponseEntity<Response<Object>> deletar(@RequestParam("id") UUID id, @RequestHeader("token") UUID token)
             throws NotAuthorizedException {
         TokenRedis tokenRedis = authService.autenticar(token);
         vagaService.deletar(id, tokenRedis.getIdUser());
