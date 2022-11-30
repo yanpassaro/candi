@@ -80,6 +80,19 @@ public class VagaService {
         ).toList();
     }
 
+    public List<VagaModel> visualizarEmpresa(Integer page, UUID id) {
+        Pageable pageable = PageRequest.of(page, 20);
+        log.info("Retornando todas as vagas");
+        return vagaRepository.findAllByEmpresaId(id,pageable).map(
+                vaga -> VagaModel.builder()
+                        .id(vaga.getId())
+                        .nome(vaga.getNome())
+                        .tipo(vaga.getTipo())
+                        .dataTermino(vaga.getDataTermino())
+                        .build()
+        ).toList();
+    }
+
     public VagaModel detalhar(UUID id) throws NotExistException {
         if (!vagaRepository.existsById(id)) {
             log.warn("Vaga não existe {}", id);
@@ -100,7 +113,7 @@ public class VagaService {
                         .cnpj(vaga.getEmpresa().getCnpj())
                         .email(vaga.getEmpresa().getContato().getEmail())
                         .telefone(vaga.getEmpresa().getContato().getTelefone())
-                        .site(vaga.getEmpresa().getContato().getBlog())
+                        .site(vaga.getEmpresa().getContato().getSite())
                         .cidade(vaga.getEmpresa().getEndereco().getCidade())
                         .estado(vaga.getEmpresa().getEndereco().getEstado())
                         .build())

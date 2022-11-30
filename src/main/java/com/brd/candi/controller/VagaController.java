@@ -63,6 +63,19 @@ public class VagaController {
                 .build());
     }
 
+    @GetMapping("/visualizar/empresa")
+    @ResponseStatus(OK)
+    public ResponseEntity<Response<Object>> visualizarEmpresa(@RequestParam("page") Integer page, @RequestHeader("token") UUID token)
+            throws NotAuthorizedException {
+        TokenRedis tokenRedis = authService.autenticar(token);
+        return ResponseEntity.ok(Response.builder()
+                .date(now())
+                .status(OK).statusCode(OK.value())
+                .message("Retornando todas as vagas")
+                .datas(vagaService.visualizarEmpresa(page, tokenRedis.getIdUser()))
+                .build());
+    }
+
     @DeleteMapping("/deletar")
     @ResponseStatus(OK)
     public ResponseEntity<Response<Object>> deletar(@RequestParam("id") UUID id, @RequestHeader("token") UUID token)

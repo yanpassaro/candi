@@ -11,6 +11,4 @@ public interface EmpresaRepository extends JpaRepository<Empresa, UUID> {
     boolean existsByRecrutadoresId(UUID id);
 
     boolean existsEmpresaByCnpj(String cnpj);
-
-    boolean existsEmpresaByRecrutadoresIdAndRecrutadoresRole(UUID id, String roleNome);
 }

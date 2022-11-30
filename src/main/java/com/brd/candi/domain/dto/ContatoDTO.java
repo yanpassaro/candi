@@ -18,6 +18,4 @@ public class ContatoDTO {
     private String telefone;
     @Size(max = 300)
     private String site;
-    @Size(max = 300)
-    private String portfolio;
 }

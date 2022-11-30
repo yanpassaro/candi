@@ -43,7 +43,7 @@ public class EmpresaDTO {
                 .id(contato.getId())
                 .telefone(contato.getTelefone())
                 .email(contato.getEmail())
-                .blog(contato.getSite())
+                .site(contato.getSite())
                 .build();
     }
 

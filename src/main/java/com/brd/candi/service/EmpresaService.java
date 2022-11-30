@@ -67,7 +67,7 @@ public class EmpresaService {
     @Transactional
     public void atualizar(EmpresaDTO empresaDTO, UUID id)
             throws NotAuthorizedException {
-        if (!empresaRepository.existsEmpresaByRecrutadoresIdAndRecrutadoresRole(id, ADMIN.getRoleNome()))
+        if (!empresaRepository.existsByRecrutadoresId(id))
             throw new NotAuthorizedException("Sem autorização para realizar operação");
         Empresa empresa = empresaRepository.findEmpresaByRecrutadoresId(id);
         empresaRepository.save(
@@ -87,7 +87,7 @@ public class EmpresaService {
     @Async
     @Transactional
     public void deletar(UUID id) throws NotAuthorizedException {
-        if (!empresaRepository.existsEmpresaByRecrutadoresIdAndRecrutadoresRole(id, ADMIN.getRoleNome()))
+        if (!empresaRepository.existsByRecrutadoresId(id))
             throw new NotAuthorizedException("Sem autorização para realizar operação");
         Empresa empresa = empresaRepository.findEmpresaByRecrutadoresId(id);
         log.info("Deletando a empresa {}", empresa.getId());
@@ -116,7 +116,7 @@ public class EmpresaService {
                         .cnpj(empresa.getCnpj())
                         .sobre(empresa.getSobre())
                         .email(empresa.getContato().getEmail())
-                        .site(empresa.getContato().getBlog())
+                        .site(empresa.getContato().getSite())
                         .cidade(empresa.getEndereco().getCidade())
                         .estado(empresa.getEndereco().getEstado())
                         .telefone(empresa.getContato().getTelefone())

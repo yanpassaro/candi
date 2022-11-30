@@ -23,8 +23,7 @@ public class Contato {
     private UUID id;
     private String email;
     private String telefone;
-    private String blog;
-    private String portfolio;
+    private String site;
 
     @Override
     public boolean equals(Object o) {

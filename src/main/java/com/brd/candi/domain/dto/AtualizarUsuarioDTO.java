@@ -42,9 +42,8 @@ public class AtualizarUsuarioDTO {
         return Contato.builder()
                 .id(contato.getId())
                 .email(contato.getEmail())
-                .blog(contato.getSite())
+                .site(contato.getSite())
                 .telefone(contato.getTelefone())
-                .portfolio(contato.getPortfolio())
                 .build();
     }
 }

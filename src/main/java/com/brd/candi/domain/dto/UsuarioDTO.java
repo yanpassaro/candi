@@ -48,9 +48,8 @@ public class UsuarioDTO {
     public Contato getContato() {
         return Contato.builder()
                 .email(contato.getEmail())
-                .blog(contato.getSite())
+                .site(contato.getSite())
                 .telefone(contato.getTelefone())
-                .portfolio(contato.getPortfolio())
                 .build();
     }
 }
