@@ -15,8 +15,17 @@ Desenvolvido como requisito avaliativo escolar.
 
 	https://api-candi.herokuapp.com/api/
 
-<img alt="NextLevelWeek" title="#NextLevelWeek" src="assets/img.png">
+<img alt="PostmanScreenshoot" title="#PostmanScreenshoot" src="assets/img.png">
 
+### Features
+
+- [x] Cadastro de usuário
+- [X] Cadastro de empresas
+- [x] Login
+- [x] Cadastro de vagas
+- [x] Cadastro de candidaturas
+- [x] Análise de candidaturas
+- [X] Envio de análises via email
 
 ## Requisitos
 
@@ -28,6 +37,7 @@ Desenvolvido como requisito avaliativo escolar.
 ## Instalação
 
 	git clone https://github.com/yangt21/api-candi
+	cd api-candi
 	
 > Crie um arquivo .env na raiz do projeto.  
 
