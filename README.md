@@ -1,4 +1,4 @@
-<p align="left">
+<p align="center">
 <img src="https://img.shields.io/github/contributors/yangt21/api-candi?logo=github&color=gree&style=flat-square">
 <img src="https://img.shields.io/github/languages/count/yangt21/api-candi?logo=github&style=flat-square">
 <img src="https://img.shields.io/github/forks/yangt21/api-candi?logo=github&style=flat-square">
@@ -21,6 +21,16 @@ Desenvolvido como requisito avaliativo escolar.
 ## Instalação
 
 	git clone https://github.com/yangt21/api-candi
+	
+> Crie um arquivo .env na raiz do projeto.  
+
+> Insira no .env as credenciais do banco dados e do email que serão utilizados de acordo com o application-dev.properties
+
+> Se necessário modifique a url do serviço smtp
+
+> Logo após configure o profile que será utilizado na inicialização do aplicativo para o perfil dev
+
+> O servidor inciará na porta:8080 - acesse http://localhost:8080
     
 ## Referência
 
