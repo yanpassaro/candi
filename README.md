@@ -11,6 +11,13 @@ Solução tecnológica para recrutadores (RH).
 
 Desenvolvido como requisito avaliativo escolar.
 
+## Deploy
+
+	https://api-candi.herokuapp.com/api/
+
+<img alt="NextLevelWeek" title="#NextLevelWeek" src="assets/img.png">
+
+
 ## Requisitos
 
 + [Java JDK](https://www.oracle.com/br/java/technologies/downloads/)
