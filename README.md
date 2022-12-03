@@ -37,7 +37,9 @@ Desenvolvido como requisito avaliativo escolar.
 
 > Logo após configure o profile que será utilizado na inicialização do aplicativo para o perfil dev
 
-> O servidor inciará na porta:8080 - acesse http://localhost:8080
+> O servidor inciará na porta 8080
+
+> Acesse http://localhost:8080/api/
     
 ## Referência
 
