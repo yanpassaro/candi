@@ -29,4 +29,19 @@ class UsuarioServiceTest {
 
     }
 
+    @Test
+    void cadastrar() {
+    }
+
+    @Test
+    void atualizar() {
+    }
+
+    @Test
+    void deletar() {
+    }
+
+    @Test
+    void visualizar() {
+    }
 }
