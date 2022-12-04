@@ -13,7 +13,7 @@ Developed as an academic evaluation requirement.
 
 ## Deploy
 
-	https://api-candi.herokuapp.com/api/ --(depreciated on 12/30/2022)
+	https://api-candi.herokuapp.com/api/ --(deprecated on 12/30/2022)
 
 <img alt="PostmanScreenshoot" title="#PostmanScreenshoot" src=".assets/img.png">
 
