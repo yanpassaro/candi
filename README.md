@@ -15,7 +15,7 @@ Developed as an academic evaluation requirement.
 
 	https://api-candi.herokuapp.com/api/ --(depreciated on 12/30/2022)
 
-<img alt="PostmanScreenshoot" title="#PostmanScreenshoot" src="assets/img.png">
+<img alt="PostmanScreenshoot" title="#PostmanScreenshoot" src=".assets/img.png">
 
 ### Features
 
