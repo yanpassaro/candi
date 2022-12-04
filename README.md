@@ -3,57 +3,66 @@
 <img src="https://img.shields.io/github/languages/count/yangt21/api-candi?logo=github&style=flat-square">
 <img src="https://img.shields.io/github/forks/yangt21/api-candi?logo=github&style=flat-square">
 
-# Sistema gerenciador de candidaturas
+# CANDI
 
-Solução tecnológica para recrutadores (RH).
+Built with Spring, candi is a technology solution for recruiters (HR).
 
-## Motivação
+## Motivation
 
-Desenvolvido como requisito avaliativo escolar.
+Developed as an academic evaluation requirement.
 
 ## Deploy
 
-	https://api-candi.herokuapp.com/api/
+	https://api-candi.herokuapp.com/api/ --(depreciated on 12/30/2022)
 
 <img alt="PostmanScreenshoot" title="#PostmanScreenshoot" src="assets/img.png">
 
 ### Features
 
-- [x] Cadastro de usuário
-- [X] Cadastro de empresas
-- [x] Login
-- [x] Cadastro de vagas
-- [x] Cadastro de candidaturas
-- [x] Análise de candidaturas
-- [X] Envio de análises via email
+- [x] User registration
+- [X] Registration of companies
+- [x] Login and Auth
+- [x] Registration of vacancies
+- [x] Candidate record
+- [x] Candidate analysis
+- [X] Sending analyzes via email
 
-## Requisitos
+# Getting started
 
-+ [Java JDK](https://www.oracle.com/br/java/technologies/downloads/)
-+ [Spring](https://start.spring.io)
-+ [PostgreSQL](https://www.postgresql.org)
-+ [Redis](https://redis.io/)
+These instructions will get you a copy of the full project up and running on your local machine for development and testing purposes.
 
-## Instalação
+For the project, java version 17 was used. [install](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
+
+The dependency installer used was Mavem, the versions used for each dependency are in the [#POM](./pom.xml).
+
+Recommended to use [Intellij IDE](https://www.jetbrains.com/idea/).
+
+## Database configuration
+
+The project uses [PostgreSQL](https://www.postgresql.org) and [Redis](https://redis.io/).
+
+I recommend using Docker to install and run the above databases and services.
+
+## How to install
 
 	git clone https://github.com/yangt21/api-candi
 	cd api-candi
-	
-> Crie um arquivo .env na raiz do projeto.  
 
-> Insira no .env as credenciais do banco dados e do email que serão utilizados de acordo com o application-dev.properties
+## How to configure
 
-> Se necessário modifique a url do serviço smtp
+> Create an .env file in the root of the project.
 
-> Logo após configure o profile que será utilizado na inicialização do aplicativo para o perfil dev
+> Insert in the .env the database and email credentials that will be used according to the [application-dev.properties](./src/main/resources/application-dev.properties)
 
-> O servidor inciará na porta 8080
+> If necessary modify the url of the smtp service
 
-> Acesse http://localhost:8080/api/
+> Right after configure the profile that will be used in the application startup for the dev profile
+
+#### Go to http://localhost:8080/api/
     
-## Referência
+## References
 
-+ [Spring Boot Documentation](https://docs.spring.io/spring-boot/docs/current/reference/html/)
++ [Spring Documentation](https://docs.spring.io/spring-boot/docs/current/reference/html/)
 + [Hibernate Documentation](https://docs.jboss.org/hibernate/orm/6.1/userguide/html_single/Hibernate_User_Guide.html)
 + [PostgreSQL Documentation](https://www.postgresql.org/docs/)
 + [Redis Documentation](https://redis.io/docs/)
