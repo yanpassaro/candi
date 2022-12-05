@@ -1,7 +1,9 @@
 <p align="center">
-<img src="https://img.shields.io/github/contributors/yangt21/api-candi?logo=github&color=gree&style=flat-square">
-<img src="https://img.shields.io/github/languages/count/yangt21/api-candi?logo=github&style=flat-square">
-<img src="https://img.shields.io/github/forks/yangt21/api-candi?logo=github&style=flat-square">
+<img src="https://img.shields.io/github/contributors/yangt21/candi?logo=github&color=gree&style=flat-square">
+<img src="https://img.shields.io/github/languages/count/yangt21/candi?logo=github&style=flat-square">
+<img src="https://img.shields.io/github/forks/yangt21/candi?logo=github&style=flat-square">
+
+<hr>
 
 # CANDI
 
@@ -45,8 +47,8 @@ I recommend using Docker to install and run the above databases and services.
 
 ## How to install
 
-	git clone https://github.com/yangt21/api-candi
-	cd api-candi
+	git clone https://github.com/yangt21/candi
+	cd candi
 
 ## How to configure
 
