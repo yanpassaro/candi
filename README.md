@@ -45,7 +45,7 @@ I recommend using Docker to install and run the above databases and services.
 
 ## How to install
 
-	git clone https://github.com/yanpassaro/candi
+	git clone https://github.com/yanpassaro/candi.git
 	cd candi
 
 ## How to configure
