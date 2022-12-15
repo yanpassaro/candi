@@ -7,17 +7,15 @@
 
 # CANDI
 
-Built with Spring, candi is a technology solution for recruiters (HR).
+Built with Spring, Candi was an API built with the aim of developing a technological solution to assist in the hiring process.
 
 ## Motivation
 
 Developed as an academic evaluation requirement.
 
-## Deploy
+## Screenshots
 
-	https://api-candi.herokuapp.com/api/ --(deprecated on 2022/12/14)
-
-<img alt="PostmanScreenshoot" title="#PostmanScreenshoot" src=".assets/img.png">
+<img alt="PostmanScreenshoot" title="PostmanScreenshoot" src=".assets/img.png">
 
 ### Features
 
@@ -59,8 +57,6 @@ I recommend using Docker to install and run the above databases and services.
 > If necessary modify the url of the smtp service
 
 > Right after configure the profile that will be used in the application startup for the dev profile
-
-#### Go to http://localhost:8080/api/
     
 ## References
 
