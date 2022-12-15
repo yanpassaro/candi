@@ -1,7 +1,7 @@
 <p align="center">
-<img src="https://img.shields.io/github/contributors/yangt21/candi?logo=github&color=gree&style=flat-square">
-<img src="https://img.shields.io/github/languages/count/yangt21/candi?logo=github&style=flat-square">
-<img src="https://img.shields.io/github/forks/yangt21/candi?logo=github&style=flat-square">
+<img src="https://img.shields.io/github/contributors/yanpassaro/candi?logo=github&color=gree&style=flat-square">
+<img src="https://img.shields.io/github/languages/count/yanpassaro/candi?logo=github&style=flat-square">
+<img src="https://img.shields.io/github/forks/yanpassaro/candi?logo=github&style=flat-square">
 
 <hr>
 
@@ -15,7 +15,7 @@ Developed as an academic evaluation requirement.
 
 ## Deploy
 
-	https://api-candi.herokuapp.com/api/ --(deprecated on 2022/12/30)
+	https://api-candi.herokuapp.com/api/ --(deprecated on 2022/12/14)
 
 <img alt="PostmanScreenshoot" title="#PostmanScreenshoot" src=".assets/img.png">
 
@@ -47,7 +47,7 @@ I recommend using Docker to install and run the above databases and services.
 
 ## How to install
 
-	git clone https://github.com/yangt21/candi
+	git clone https://github.com/yanpassaro/candi
 	cd candi
 
 ## How to configure
