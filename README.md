@@ -11,10 +11,6 @@ Built with Spring, Candi was an API built with the aim of developing a technolog
 
 Developed as an academic evaluation requirement.
 
-## Screenshots
-
-<img alt="PostmanScreenshoot" title="PostmanScreenshoot" src=".assets/img.png">
-
 ### Features
 
 - [x] User registration
@@ -24,6 +20,10 @@ Developed as an academic evaluation requirement.
 - [x] Candidate record
 - [x] Candidate analysis
 - [X] Sending analyzes via email
+
+## Screenshots
+
+<img alt="PostmanScreenshoot" title="PostmanScreenshoot" src=".assets/img.png">
 
 # Getting started
 
