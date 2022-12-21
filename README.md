@@ -9,8 +9,6 @@
 
 Built with Spring, Candi was an API built with the aim of developing a technological solution to assist in the hiring process.
 
-## Motivation
-
 Developed as an academic evaluation requirement.
 
 ## Screenshots
