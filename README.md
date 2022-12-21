@@ -1,21 +1,15 @@
 <p align="center">
-<img src="https://img.shields.io/github/contributors/yangt21/api-candi?logo=github&color=gree&style=flat-square">
-<img src="https://img.shields.io/github/languages/count/yangt21/api-candi?logo=github&style=flat-square">
-<img src="https://img.shields.io/github/forks/yangt21/api-candi?logo=github&style=flat-square">
+<img src="https://img.shields.io/github/contributors/yanpassaro/candi?logo=github&color=gree&style=flat-square">
+<img src="https://img.shields.io/github/languages/count/yanpassaro/candi?logo=github&style=flat-square">
+<img src="https://img.shields.io/github/forks/yanpassaro/candi?logo=github&style=flat-square">
+
+<hr>
 
 # CANDI
 
-Built with Spring, candi is a technology solution for recruiters (HR).
-
-## Motivation
+Built with Spring, Candi was an API built with the aim of developing a technological solution to assist in the hiring process.
 
 Developed as an academic evaluation requirement.
-
-## Deploy
-
-	https://api-candi.herokuapp.com/api/ --(depreciated on 12/30/2022)
-
-<img alt="PostmanScreenshoot" title="#PostmanScreenshoot" src="assets/img.png">
 
 ### Features
 
@@ -26,6 +20,10 @@ Developed as an academic evaluation requirement.
 - [x] Candidate record
 - [x] Candidate analysis
 - [X] Sending analyzes via email
+
+## Screenshots
+
+<img alt="PostmanScreenshoot" title="PostmanScreenshoot" src=".assets/img.png">
 
 # Getting started
 
@@ -45,8 +43,8 @@ I recommend using Docker to install and run the above databases and services.
 
 ## How to install
 
-	git clone https://github.com/yangt21/api-candi
-	cd api-candi
+	git clone https://github.com/yanpassaro/candi.git
+	cd candi
 
 ## How to configure
 
@@ -57,8 +55,6 @@ I recommend using Docker to install and run the above databases and services.
 > If necessary modify the url of the smtp service
 
 > Right after configure the profile that will be used in the application startup for the dev profile
-
-#### Go to http://localhost:8080/api/
     
 ## References
 
